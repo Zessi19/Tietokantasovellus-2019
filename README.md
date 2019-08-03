@@ -1,10 +1,14 @@
 # Tietokantasovellus 2019 - Keskustelufoorumi
 
+## Linkit
+* Heroku: https://tsoha-keskustelufoorumi-jj.herokuapp.com/
+* Sovelluksen tila, weekly documentation update: 
+
 ## Sovelluksen kuvaus
 
 Harjoitustyössä tavoitteena on kehittää "old-school" -tyyppinen keskustelufoorumi. Käyttäjä kirjautuu tunnuksellaan foorumille, jolloin käyttäjälle avautuu näkymä kaikista viestiketjuista otsikkoineen (threads). Käyttäjä voi tämän jälkeen valita haluamansa viestiketjun tai luoda kokonaan uuden viestiketjun. Jos käyttäjä valitsee jonkun viestiketjuista, hänelle avautuu näkymä viestiketjun otsikosta ja kaikista viestiketjun viesteistä (posts). Käyttäjä voi myös samassa näkymässä osallistua keskusteluun kirjoittamalla viestiketjuun uuden postauksen.
 
-Kun käyttäjä luo uuden viestiketjun, hänen pitää valita mihin ennalta määriteltyyn kategoriaan viesti kuuluu, näitä kategorioita (tags) tulee olla yksi tai useampi. Jos foorumimme käsittelesi esimerkiksi Playstation pelejä, tageja voisi olla esimerkiksi ps1, ps2, ps3, ps4, ps5, jrpg, rpg, platformer, puzzle, simulator, shooter, racing, sports, psDeals ja general. Kirjautuessaan sisään käyttäjällä on mahdollisuus valita kaikkien viestiketjujen näkymässä näytettävän vain ne viestiketjut, jotka on sisältä yhden tai useamman käyttäjän valitseman tagin, esimerkiksi ps3 ja ps4.
+Kun käyttäjä luo uuden viestiketjun, hänen pitää valita mihin ennalta määriteltyyn kategoriaan viesti kuuluu, näitä kategorioita (tags) tulee olla yksi tai useampi. Jos foorumimme käsittelesi esimerkiksi Nintendo pelejä, tageja voisi olla esimerkiksi NES, SNES, N64, GC, Wii, WiiU, Switch, GB, GBA, DS, 3DS, jrpg, rpg, platformer, puzzle, simulator, shooter, racing, sports, nintendoDeals ja general. Kirjautuessaan sisään käyttäjällä on mahdollisuus valita kaikkien viestiketjujen näkymässä näytettävän vain ne viestiketjut, jotka sisältävät yhden tai useamman käyttäjän valitseman tagin, esimerkiksi n64 ja platformer.
 
 Keskustelufoorumilla on kaksi eri kättäjätyyppiä: user ja admin. Normaalikäyttäjään user nähden adminilla on mahdollisuus poistaa mikätahansa viesti tai viestiketju ja poistaa kenentahansa normaalikäyttäjän käyttäjätunnus. Mahdollisesti adminille voidaan myös lisätä myös mahdollisuuksia muuttaa viestiketjun tageja, jos ne on asetettu väärin (vastaa perinteisillä foorumeilla viestiketjun siirtämistä oikeaan aihealueeseen).
 
@@ -31,16 +35,16 @@ Tietokantakaaviossa ydintoiminnallisuudet käsittelevät tietotaulut on valkoisi
 
 ## Poisrajatut toiminnallisuudet ( Vertaa moderni keskustelufoorumi)
 
-* Käyttäjän varmentaminen (authentication)
+* Käyttäjän varmentaminen sähköpostilla yms.
 * Yksityisviestit käyttäjien välillä
 * Ryhmäviestit käyttäjien välillä
-* Edellisen käyttäjän viestin lainaus tai vastaas, joka muodostaa oman alahaaran.
-* Ei mahdollista asettaa väliaikaista käyttökieltoa käyttäjälle, vain permanent ban
-* Ulkoaso pelkistetty vs Moderni keskustelufoorumi
+* Muiden käyttäjien viestin lainaus tai vastaus tiettyyn viestiin josta muodostuu oman alahaaran.
+* Ei mahdollista asettaa väliaikaista käyttökieltoa käyttäjälle, vain permanent ban (käyttäjän poisto)
+* Ulkoasu pelkistetty vs Moderni keskustelufoorumi
 
 
 ## Kysymyksiä
 
+(Week 2 Update: Tämä käsitellään ilmeisesti materiaalissa myöhemmin)
+
 Onko adminin oikeuksien merkitseminen User-tietotauluun omana Boolean muuttujana järkevä tapa? Ohjelmaan on tarkoituksena kovakoodata oma käyttäjätunnukseni, jota ei ole mahdollista poistaa käyttäjänpoisto -metodilla. Uuden käyttäjän tapauksessa Boolean muuttuja asetetaan aina off-tilaan. Tämän jälkeen toisella admin-käyttäjällä on toiminnallisuus, jolla valittu user-käyttäjä voidaan siirtää user-tilasta admin-tilaan, ja ohjelman metodi asettaa tällöin Boolean muuttujan on-tilaan. 
-
-
