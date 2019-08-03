@@ -2,7 +2,7 @@
 
 ## Linkit
 * Heroku: https://tsoha-keskustelufoorumi-jj.herokuapp.com/
-* Sovelluksen tila, weekly documentation update: 
+* Sovelluksen tila, weekly documentation update: https://github.com/Zessi19/Tietokantasovellus-2019/blob/master/documentation/WeeklyUpdate.md
 
 ## Sovelluksen kuvaus
 
