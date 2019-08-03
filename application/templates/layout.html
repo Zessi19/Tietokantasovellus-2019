@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>Nintendo Forum</title>
+
+      <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='layout.css')}}">
+   </head>
+
+   <body>
+      <h1>Nintendo Forum</h1>
+
+      <ul style="list-style-type:none;"> 
+         <li><a href="{{ url_for('index') }}">Etusivu</a></li>
+	      <li><a href="{{ url_for('threads_index') }}">Näytä keskustelut</a></li>
+         <li><a href="{{ url_for('threads_form') }}">Aloita uusi keskustelu</a></li>
+      </ul>
+   
+      {% block body %}
+         <p>
+         Content.
+         </p>
+      {% endblock %}
+   </body>
+</html>

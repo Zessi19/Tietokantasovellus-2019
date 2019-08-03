@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+  
+{% block body %}
+<form method="POST" action="{{ url_for('threads_create') }}">
+  Otsikko:
+  <input type="text" name="subject"/>
+  <input type="submit" value="Luo viestiketju"/>
+</form>
+{% endblock %}

@@ -24,7 +24,7 @@ Ajan salliessa projektia voidaan laajentaa antamalla käyttäjän mahdollisuus "
 
 
 ## Tietokanta kaavio
-![](tietokantakaavio.png)
+![](documentation/tietokantakaavio.png)
 
 Tietokantakaaviossa ydintoiminnallisuudet käsittelevät tietotaulut on valkoisia, ajan salliessa lisättävä äänestytoiminnallisuuden Votes-tietotaulu on keltainen ja hifistely mielessä tehty käyttäjän avatarin tallettava User-tietotaulun atribuutti picture on maalattu punaiseksi. Tietotaulujen atribuutit seuraavat Tietokantojen perusteet -kurssin notaatiota. Character atribuutit on nimetty toistaiseksi yleisnimityksellä "String", mutta projektin edetessä ne päivitetään esimerkiksi halutun pituisiksi VARCHAR(X) atribuuteiksi.  
 

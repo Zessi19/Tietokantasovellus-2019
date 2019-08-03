@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block body %}
+   <table>
+      <tr>
+         <th>Otsikko</th>
+         <th></th>
+      </tr>
+
+      {% for i in threads %}
+         <tr>
+            <td>{{ i.subject }}</td>
+            <td>
+               <form method="POST" action="{{ url_for('threads_update', thread_id=i.id) }}">
+	               <input type="submit" value="Muokkaa"/>
+                  <input type="text" name="new_subject"/>
+	            </form>
+            </td>
+         </tr>
+      {% endfor %}
+   </table>
+{% endblock %}
