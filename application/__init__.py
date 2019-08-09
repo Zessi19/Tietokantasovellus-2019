@@ -1,8 +1,8 @@
-# use Flask
+# Use Flask
 from flask import Flask
 app = Flask(__name__)
 
-# use SQLalchemy
+# Use SQLalchemy
 from flask_sqlalchemy import SQLAlchemy
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///threads.db"
 app.config["SQLALCHEMY_ECHO"] = True
@@ -10,14 +10,33 @@ app.config["SQLALCHEMY_ECHO"] = True
 # Create db-object, which is used to handle database
 db = SQLAlchemy(app)
 
-# Read application/views.py 
+
+# Read views and models files (Oman sovelluksen toiminnallisuudet) 
 from application import views
+from application.threads import models, views
+from application.auth import models, views
 
-from application.threads import models
-from application.threads import views
 
-# Create all datatables
-db.create_all()
+# Login
+from application.auth.models import User
+from os import urandom
+app.config["SECRET_KEY"] = urandom(99)
+
+from flask_login import LoginManager
+login_manager = LoginManager()
+login_manager.init_app(app)
+
+login_manager.login_view = "auth_login"
+login_manager.login_message = "Please login to use this functionality."
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
+
+
 
 # Reset all datatables
 #db.drop_all()
+
+# Create all datatables
+db.create_all()

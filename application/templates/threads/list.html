@@ -7,16 +7,25 @@
          <th></th>
       </tr>
 
-      {% for i in threads %}
+      {% for i in threadList %}
          <tr>
-            <td>{{ i.subject }}</td>
-            <td>
-               <form method="POST" action="{{ url_for('threads_update', thread_id=i.id) }}">
-	               <input type="submit" value="Muokkaa"/>
-                  <input type="text" name="new_subject"/>
-	            </form>
+            <td id="td01">{{ i.topic }}</td>
+         
+            <td id="td01">
+               <div style=float:right;>
+                  <form method="POST" action="{{ url_for('threads_remove', threadId=i.id) }}">
+                     <input type="submit" value="Poista"/>
+                  </form>
+               </div>
+
+               <div style=float:right;>
+                  <form method="GET" action="{{ url_for('threads_update', threadId=i.id) }}">
+                     <input type="submit" value="Muokkaa"/>
+                  </form>
+               </div>
             </td>
          </tr>
+
       {% endfor %}
    </table>
 {% endblock %}

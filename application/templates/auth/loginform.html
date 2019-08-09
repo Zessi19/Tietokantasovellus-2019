@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<form method="POST" action="{{ url_for('auth_login') }}">
+   <table>
+      <caption style="font-weight: bold; font-size: 140%;"> Kirjaudu </caption>
+      <tr><td colspan="3"></td></tr>
+
+      <tr>
+         <td>{{ form.username.label }}</td>
+         <td>{{ form.username }}</td>
+      </tr>
+
+      <tr>
+         <td>{{ form.password.label }}</td>
+         <td>{{ form.password }}</td>
+      </tr>
+
+      <tr>
+         <td colspan="2"><input type="submit" value="Kirjaudu"/></td>
+      </tr>
+   </table>
+</form>
+
+{{ error }}
+
+{% endblock %}

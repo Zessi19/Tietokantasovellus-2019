@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<form method="POST" action="{{ url_for('threads_update', threadId=threadId) }}">
+   <table>
+      <tr>
+         <td> Vanha otsikko: </td>
+         <td> {{ oldTopic }} </td>
+      </tr>
+
+      <tr>
+         <td> Uusi otsikko: </td>
+         <td> {{ form.topic}} </td>
+         <td>
+            <ul>
+            {% for error in form.topic.errors %}
+               <li>{{ error }}</li>
+            {% endfor %}
+            </ul>
+         </td>
+      </tr>
+
+      <tr>
+         <td colspan="2"><input type="submit" value="Muokkaa otsikkoa"/></td>
+      </tr>
+   </table>
+</form>
+
+
+{% endblock %}
+

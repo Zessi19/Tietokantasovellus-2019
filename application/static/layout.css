@@ -21,16 +21,25 @@ table {
    width: 100%;
 }
 
-td {
-   border-width: 2px;
-   border-color: red;
-   border-top-style: solid;
-   border-bottom-style: solid;
-}
-
 table, th, td {
    text-align: left;
    padding: 10px;
    border-collapse: collapse;
    font-size: large;
 }
+
+#td01 {
+   border-width: 2px;
+   border-color: red;
+   border-top-style: solid;
+   border-bottom-style: solid;
+}
+
+#td02 {
+   border-width: 2px;
+   border-color: red;
+   border-top-style: solid;
+   border-bottom-style: solid;
+   text-align: right;
+}
+
