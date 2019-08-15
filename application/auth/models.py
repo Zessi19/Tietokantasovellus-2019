@@ -1,17 +1,15 @@
 from application import db
+from application.models import Base 
 
-class User(db.Model):
+class User(Base):
    __tablename__ = "account"
-   id = db.Column(db.Integer, primary_key=True)
 
    name = db.Column(db.String(255), nullable=False)
    username = db.Column(db.String(255), nullable=False)
    password = db.Column(db.String(255), nullable=False)
-   
-   admin = db.Column(db.Boolean, nullable=False)   
-   created = db.Column(db.DateTime, default=db.func.current_timestamp())
-   modified = db.Column(db.DateTime, default=db.func.current_timestamp(),
-                              onupdate=db.func.current_timestamp())
+   admin = db.Column(db.Boolean, nullable=False)
+
+   threads = db.relationship("Thread", backref='account', lazy=True)
 
    def __init__(self, name, username, password, admin):
       self.name = name

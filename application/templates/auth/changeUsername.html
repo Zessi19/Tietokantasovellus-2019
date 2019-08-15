@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<form method="POST" action="{{ url_for('auth_change_username', userId=current_user.id) }}">
+   <table>
+      <caption style="font-weight: bold; font-size: 140%;"> Päivitä käyttäjätiedot </caption>
+         <tr><td colspan="3"></td></tr>
+
+      <tr>
+         <td>{{ form.username.label }}</td>
+         <td>{{ form.username }}</td>
+         <td>
+            <ul>
+               {% for error in form.username.errors %}
+                  <li>{{ error }}</li>
+               {% endfor %}
+            </ul>
+         </td>
+      </tr>
+
+      <tr>
+         <td colspan="3"><input type="submit" value="Vahvista"/></td>
+      </tr>
+   </table>
+</form>
+
+{{ error }}
+
+
+{% endblock %}

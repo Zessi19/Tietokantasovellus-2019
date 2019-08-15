@@ -1,4 +1,5 @@
 from flask import redirect, render_template, request, url_for
+from flask_login import login_required, current_user
 
 from application import app, db
 from application.threads.models import Thread
@@ -14,8 +15,25 @@ def threads_index():
 
 
 
-# Create New Thread
+# View Thread
+@app.route("/threads/<threadId>/open", methods=["GET"])
+def threads_open(threadId):
+   
+   # List: [0] Account.id, [1] Account.username, [2] Thread.id, [3] Thread.topic, [4] Thread.created, [5] Thread.modified 
+   threadData = Thread.get_thread_data(threadId)
+
+  
+
+   ## HTML sivu jossa Username + Topic
+   return render_template("threads/open.html", threadData=threadData)
+
+
+
+# ---------------------
+#   Create New Thread
+# ---------------------
 @app.route("/threads/new", methods=["GET", "POST"])
+@login_required
 def threads_create():
    if request.method == "GET":
       return render_template("threads/new.html", form=ThreadForm())
@@ -25,15 +43,16 @@ def threads_create():
       return render_template("threads/new.html", form=form)
 
    dbThread = Thread(form.topic.data)
+   dbThread.account_id = current_user.id
+
    db.session().add(dbThread)
    db.session().commit()
-
    return redirect(url_for("threads_index"))
 
 
 
 # Update Thread Topic
-@app.route("/threads/update/<threadId>", methods=["GET", "POST"])
+@app.route("/threads/<threadId>/update", methods=["GET", "POST"])
 def threads_update(threadId):
    oldTopic = Thread.query.get(threadId).topic
 
@@ -53,7 +72,7 @@ def threads_update(threadId):
 
  
 # Remove Thread
-@app.route("/threads/remove/<threadId>", methods=["POST"])
+@app.route("/threads/<threadId>/remove", methods=["POST"])
 def threads_remove(threadId):
 
    dbThread = Thread.query.get(threadId)

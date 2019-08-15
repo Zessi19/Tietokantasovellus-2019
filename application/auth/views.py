@@ -3,7 +3,11 @@ from flask_login import login_user, logout_user
 
 from application import app, db
 from application.auth.models import User
-from application.auth.forms import LoginForm, RegisterForm
+from application.auth.forms import LoginForm, RegisterForm, ChangeNameForm, ChangeUsernameForm, ChangePasswordForm
+
+# ----------------
+#   Login/Logout
+# ----------------
 
 @app.route("/auth/login", methods=["GET","POST"])
 def auth_login():
@@ -11,9 +15,8 @@ def auth_login():
       return render_template("auth/loginform.html", form=LoginForm())
 
    form = LoginForm(request.form)
-   # mahdolliset validoinnit
-
    user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
+
    if not user:
       return render_template("auth/loginform.html", form=form, error="Väärä käyttäjätunnus tai salasana")
 
@@ -27,6 +30,11 @@ def auth_logout():
     return redirect(url_for("threads_index"))
 
 
+
+# ------------
+#   Register 
+# ------------
+ 
 @app.route("/auth/register", methods=["GET","POST"])
 def auth_register():
    if request.method == "GET":
@@ -41,4 +49,85 @@ def auth_register():
    db.session.add(dbUser)
    db.session.commit()
 
-   return redirect(url_for("auth_login"))   
+   return redirect(url_for("auth_login"))
+
+
+
+# ---------------------------------
+#   User information and updating
+# ---------------------------------
+
+@app.route("/auth/<userId>/userinfo", methods=["GET"])
+def auth_userinfo(userId):
+   return render_template("auth/userinfo.html")
+
+
+@app.route("/auth/<userId>/changeName", methods=["GET", "POST"])
+def auth_change_name(userId):
+   dbUser = User.query.get(userId)
+
+   if request.method == "GET":
+      form = ChangeNameForm()
+      form.name.data = dbUser.name
+      return render_template("auth/changeName.html", form=form)
+
+   form = ChangeNameForm(request.form)
+   if not form.validate():
+      return render_template("auth/changeName.html", form=form)
+
+   dbUser.name = form.name.data
+   db.session().commit()   
+   return redirect(url_for("auth_userinfo", userId=userId))
+
+
+@app.route("/auth/<userId>/changeUsername", methods=["GET", "POST"])
+def auth_change_username(userId):
+   dbUser = User.query.get(userId)
+
+   if request.method == "GET":
+      form = ChangeUsernameForm()
+      form.username.data = dbUser.username
+      return render_template("auth/changeUsername.html", form=form)
+
+   form = ChangeUsernameForm(request.form)
+   if not form.validate():
+      return render_template("auth/changeUsername.html", form=form)
+
+   dbUser.username = form.username.data
+   db.session().commit()
+   return redirect(url_for("auth_userinfo", userId=userId))
+
+
+@app.route("/auth/<userId>/changePassword", methods=["GET", "POST"])
+def auth_change_password(userId):
+   dbUser = User.query.get(userId)
+
+   if request.method == "GET":
+      form = ChangePasswordForm()
+      form.password.data = dbUser.password
+      form.confirm.data = dbUser.password
+      return render_template("auth/changePassword.html", form=form)
+
+   form = ChangePasswordForm(request.form)
+   if not form.validate():
+      return render_template("auth/changePassword.html", form=form)
+
+   dbUser.password = form.password.data
+   db.session().commit()
+   return redirect(url_for("auth_userinfo", userId=userId))
+
+
+
+#### KESKEN #####
+# ---------------
+#   Remove user
+# ---------------
+@app.route("/auth/<userId>/removeUser", methods=["POST"])
+def auth_remove(userId):
+
+   return redirect(url_for("threads_index"))
+
+
+
+
+

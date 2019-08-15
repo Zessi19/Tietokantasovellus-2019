@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<table>
+   <caption style="font-weight: bold; font-size: 140%;"> Omat tiedot </caption>
+   <th><td colspan="3"></td></th>
+
+   <tr>
+      <td> Nimi: </td>
+      <td>{{ current_user.name }}</td>
+      <td>
+         <form method="GET" action="{{ url_for('auth_change_name', userId=current_user.id) }}">
+            <input type="submit" value="Vaihda"/>
+         </form>
+      </td>
+   </tr>
+
+   <tr>
+      <td> Käyttäjätunnus: </td>
+      <td>{{ current_user.username }}</td>
+      <td>
+         <form method="GET" action="{{ url_for('auth_change_username', userId=current_user.id) }}">
+            <input type="submit" value="Vaihda"/>
+         </form>
+      </td>
+   </tr>
+
+   <tr>
+      <td> Salasana: </td>
+      <td>{{ current_user.password }}</td>
+      <td>
+         <form method="GET" action="{{ url_for('auth_change_password', userId=current_user.id) }}">
+            <input type="submit" value="Vaihda"/>
+         </form>
+      </td>
+   </tr>
+
+   <tr>
+      <td> Käyttöoikeudet: </td>
+      <td>
+      {% if current_user.admin == True %}
+         admin
+      {% else %}
+         user
+      {% endif %}
+      </td>
+      <td></td>
+   </tr>
+
+   <tr>
+      <td> Aloitetut viestiketjut: </td> 
+      <td> X </td>
+      <td></td>
+   </tr>
+
+   <tr>
+      <td> Viestit: </td>
+      <td> Y </td>
+      <td></td>
+   </tr>
+
+   <tr><td colspan="3"></td></tr>
+</table>
+
+<form method="POST" action="{{ url_for('auth_remove', userId=current_user.id) }}">
+   <input type="button" value="Poista käyttäjätili"/>
+</form>
+
+{% endblock %}

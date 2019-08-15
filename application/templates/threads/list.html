@@ -9,7 +9,7 @@
 
       {% for i in threadList %}
          <tr>
-            <td id="td01">{{ i.topic }}</td>
+            <td id="td01"> <a href="{{ url_for('threads_open', threadId=i.id) }}">{{ i.topic }}</a> </td>
          
             <td id="td01">
                <div style=float:right;>

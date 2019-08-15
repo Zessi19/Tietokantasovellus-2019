@@ -1,11 +1,28 @@
 from application import db
+from application.models import Base
 
-class Thread(db.Model):
-   id = db.Column(db.Integer, primary_key=True)
+from sqlalchemy.sql import text
+
+
+class Thread(Base):
    topic = db.Column(db.String(100), nullable=False)
-   created = db.Column(db.DateTime, default=db.func.current_timestamp())
-   modified = db.Column(db.DateTime, default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
+   account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
 
    def __init__(self, topic):
       self.topic = topic
+
+
+   @staticmethod
+   def get_thread_data(threadId):
+      statement = text("SELECT Account.id, Account.username, Thread.id, Thread.topic, Thread.created, Thread.modified FROM Thread"
+                  " LEFT JOIN Account ON Account.id = Thread.account_id"
+                  " WHERE Thread.id = :threadId").params(threadId=threadId)
+      res = db.engine.execute(statement)
+ 
+      response = [] 
+      for row in res:
+         response.append(row[0]); response.append(row[1]);
+         response.append(row[2]); response.append(row[3]); response.append(row[4]); response.append(row[5]);
+
+      return response
 
