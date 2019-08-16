@@ -1,5 +1,5 @@
 from flask import redirect, render_template, request, url_for
-from flask_login import login_user, logout_user
+from flask_login import login_user, logout_user, login_required, current_user
 
 from application import app, db
 from application.auth.models import User
@@ -25,6 +25,7 @@ def auth_login():
 
 
 @app.route("/auth/logout")
+@login_required
 def auth_logout():
     logout_user()
     return redirect(url_for("threads_index"))
@@ -57,14 +58,16 @@ def auth_register():
 #   User information and updating
 # ---------------------------------
 
-@app.route("/auth/<userId>/userinfo", methods=["GET"])
-def auth_userinfo(userId):
+@app.route("/auth/userinfo", methods=["GET"])
+@login_required
+def auth_userinfo():
    return render_template("auth/userinfo.html")
 
 
-@app.route("/auth/<userId>/changeName", methods=["GET", "POST"])
-def auth_change_name(userId):
-   dbUser = User.query.get(userId)
+@app.route("/auth/changeName", methods=["GET", "POST"])
+@login_required
+def auth_change_name():
+   dbUser = User.query.get(current_user.id)
 
    if request.method == "GET":
       form = ChangeNameForm()
@@ -77,12 +80,13 @@ def auth_change_name(userId):
 
    dbUser.name = form.name.data
    db.session().commit()   
-   return redirect(url_for("auth_userinfo", userId=userId))
+   return redirect(url_for("auth_userinfo"))
 
 
-@app.route("/auth/<userId>/changeUsername", methods=["GET", "POST"])
-def auth_change_username(userId):
-   dbUser = User.query.get(userId)
+@app.route("/auth/changeUsername", methods=["GET", "POST"])
+@login_required
+def auth_change_username():
+   dbUser = User.query.get(current_user.id)
 
    if request.method == "GET":
       form = ChangeUsernameForm()
@@ -95,12 +99,13 @@ def auth_change_username(userId):
 
    dbUser.username = form.username.data
    db.session().commit()
-   return redirect(url_for("auth_userinfo", userId=userId))
+   return redirect(url_for("auth_userinfo"))
 
 
-@app.route("/auth/<userId>/changePassword", methods=["GET", "POST"])
-def auth_change_password(userId):
-   dbUser = User.query.get(userId)
+@app.route("/auth/changePassword", methods=["GET", "POST"])
+@login_required
+def auth_change_password():
+   dbUser = User.query.get(current_user.id)
 
    if request.method == "GET":
       form = ChangePasswordForm()
@@ -114,7 +119,7 @@ def auth_change_password(userId):
 
    dbUser.password = form.password.data
    db.session().commit()
-   return redirect(url_for("auth_userinfo", userId=userId))
+   return redirect(url_for("auth_userinfo"))
 
 
 
@@ -122,10 +127,13 @@ def auth_change_password(userId):
 # ---------------
 #   Remove user
 # ---------------
-@app.route("/auth/<userId>/removeUser", methods=["POST"])
-def auth_remove(userId):
+@login_required
+@app.route("/auth/removeUser", methods=["POST"])
+def auth_remove():
 
    return redirect(url_for("threads_index"))
+
+
 
 
 

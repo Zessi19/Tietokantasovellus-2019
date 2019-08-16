@@ -6,11 +6,14 @@ from sqlalchemy.sql import text
 
 class Post(Base):
    message = db.Column(db.Text, nullable=False)
+   priority = db.Column(db.Integer, nullable=False)
+
    account_id = db.Column(db.Integer, db.ForeignKey('account.id'), nullable=False)
    thread_id = db.Column(db.Integer, db.ForeignKey('thread.id'), nullable=False)
 
-   def __init__(self, message):
+   def __init__(self, message, priority):
       self.message = message
+      self.priority = priority
 
 
    @staticmethod
@@ -19,7 +22,7 @@ class Post(Base):
                   " LEFT JOIN Thread ON Thread.id = Post.thread_id"
                   " LEFT JOIN Account ON Account.id = Post.account_id"
                   " WHERE Thread.id = :threadId"
-                  " ORDER BY Post.created ASC").params(threadId=threadId)
+                  " ORDER BY Post.priority DESC, Post.created ASC").params(threadId=threadId)
       res = db.engine.execute(statement)
 
       response = []

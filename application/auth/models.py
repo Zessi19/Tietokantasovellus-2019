@@ -9,7 +9,7 @@ class User(Base):
    password = db.Column(db.String(255), nullable=False)
    admin = db.Column(db.Boolean, nullable=False)
 
-   threads = db.relationship("Thread", backref='account', lazy=True)
+   posts = db.relationship("Post", backref='account', lazy=True)
 
    def __init__(self, name, username, password, admin):
       self.name = name

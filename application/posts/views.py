@@ -4,13 +4,15 @@ from flask_login import login_required, current_user
 from application import app, db
 from application.posts.models import Post
 
+# ---------------
+#   Remove Post
+# ---------------
 
-# Remove Post
-@app.route("/posts/<postId>/remove", methods=["POST"])
-def posts_remove(postId):
+@app.route("/posts/<threadId>/<postId>/remove", methods=["POST"])
+def posts_remove(postId, threadId):
 
    dbPost = Post.query.get(postId)
    db.session().delete(dbPost)
    db.session().commit()
 
-   return redirect(url_for("threads_index"))
+   return redirect(url_for("threads_open", threadId=threadId))

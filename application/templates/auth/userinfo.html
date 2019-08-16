@@ -10,7 +10,7 @@
       <td> Nimi: </td>
       <td>{{ current_user.name }}</td>
       <td>
-         <form method="GET" action="{{ url_for('auth_change_name', userId=current_user.id) }}">
+         <form method="GET" action="{{ url_for('auth_change_name') }}">
             <input type="submit" value="Vaihda"/>
          </form>
       </td>
@@ -20,7 +20,7 @@
       <td> Käyttäjätunnus: </td>
       <td>{{ current_user.username }}</td>
       <td>
-         <form method="GET" action="{{ url_for('auth_change_username', userId=current_user.id) }}">
+         <form method="GET" action="{{ url_for('auth_change_username') }}">
             <input type="submit" value="Vaihda"/>
          </form>
       </td>
@@ -30,7 +30,7 @@
       <td> Salasana: </td>
       <td>{{ current_user.password }}</td>
       <td>
-         <form method="GET" action="{{ url_for('auth_change_password', userId=current_user.id) }}">
+         <form method="GET" action="{{ url_for('auth_change_password') }}">
             <input type="submit" value="Vaihda"/>
          </form>
       </td>
@@ -63,7 +63,7 @@
    <tr><td colspan="3"></td></tr>
 </table>
 
-<form method="POST" action="{{ url_for('auth_remove', userId=current_user.id) }}">
+<form method="POST" action="{{ url_for('auth_remove') }}">
    <input type="button" value="Poista käyttäjätili"/>
 </form>
 

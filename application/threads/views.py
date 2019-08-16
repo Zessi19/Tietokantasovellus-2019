@@ -25,13 +25,13 @@ def threads_index():
 @app.route("/threads/<threadId>/open", methods=["GET"])
 def threads_open(threadId):
    
-   # List: [0] Account.username, [1] Thread.id, [2] Thread.topic, [3] Thread.created, [4] Thread.modified 
-   threadData = Thread.get_single_thread(threadId)
+   # List(4 elements): [0] Thread.id, [1] Thread.topic, [2] Thread.created, [3] Thread.modified
+   threadData = Thread.get_thread(threadId)
 
-   # List:
+   # List of list(5 elements): [0] Account.username, [1] Post.id, [2] Post.message, [3] Post.created, [4] Post.modified
    postsData = Post.get_posts_in_thread(threadId)   
 
-   ## HTML sivu jossa Username + Topic
+   ## HTML sivu jossa Topic + ketjun Viesit (username, message)
    return render_template("threads/open.html", threadData=threadData, postsData=postsData)
 
 
@@ -51,11 +51,10 @@ def threads_create():
       return render_template("threads/new.html", form=form)
 
    dbThread = Thread(form.topic.data)
-   dbThread.account_id = current_user.id
    db.session().add(dbThread)
    db.session().flush()
 
-   dbPost = Post(form.message.data)
+   dbPost = Post(form.message.data, 1)
    dbPost.account_id = current_user.id
    dbPost.thread_id = dbThread.id
    db.session().add(dbPost)
