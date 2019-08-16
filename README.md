@@ -1,14 +1,13 @@
 # Tietokantasovellus 2019 - Keskustelufoorumi
 
 ## Linkit
-* Heroku: https://tsoha-keskustelufoorumi-jj.herokuapp.com/ 
-  * Käyttäjätunnus: aku
-  * Salasana: akuankka
-  * Heroku käyttää viime viikon Sqlite3, jos tietokanta on nollautunut helppo rekisteröidä uusi käyttäjä
+* [Heroku:](https://tsoha-keskustelufoorumi-jj.herokuapp.com/) 
+  * Käyttäjätunnus: aku, hessu
+  * Salasana molemmat: ankkalinna (Helppo rekisteröidä myös oma käyttäjä)
   
-* Sovelluksen tila, weekly documentation update: https://github.com/Zessi19/Tietokantasovellus-2019/blob/master/documentation/WeeklyUpdate.md
+* Sovelluksen tila, [weeklyUpdate:](https://github.com/Zessi19/Tietokantasovellus-2019/blob/master/documentation/WeeklyUpdate.md)
 
-* Käyttötapaukset: https://github.com/Zessi19/Tietokantasovellus-2019/blob/master/documentation/UserCases.md
+* [Käyttötapaukset:](https://github.com/Zessi19/Tietokantasovellus-2019/blob/master/documentation/UserCases.md)
 
 ## Sovelluksen kuvaus
 
