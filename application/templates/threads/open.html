@@ -2,9 +2,28 @@
 
 {% block body %}
    <table>
+
       <tr>
-         <th>{{ threadData[1] }}</th>
-         <th>{{ threadData[3] }}</th>
+         <th>{{ threadData[0] }}</th>
+         <th>{{ threadData[2] }}</th>
       </tr>
+
+      {% for row in postsData %}
+         <tr>
+            <td id="td01">{{ row[0] }}</td>
+          
+            <td id="td01"><textarea>{{ row[2] }}</textarea></td>
+
+            <td id="td01">
+               <div style=float:right;>
+                  <form method="POST" action="{{ url_for('posts_remove', postId=row[1]) }}">
+                     <input type="submit" value="Poista"/>
+                  </form>
+               </div>
+            </td>
+         </tr>
+
+      {% endfor %}
+
    </table>
 {% endblock %}

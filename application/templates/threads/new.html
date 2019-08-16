@@ -1,11 +1,15 @@
 {% extends "layout.html" %}
   
 {% block body %}
+
 <form method="POST" action="{{ url_for('threads_create') }}">
    <table>
+      <caption style="font-weight: bold; font-size: 140%;"> Uusi keskustelu </caption>     
+      <th><td colspan="3"></td></th>
+      
       <tr>
-         <td> {{ form.topic.label}} </td>
-         <td> {{ form.topic}} </td>
+         <td>{{ form.topic.label}}</td>
+         <td>{{ form.topic}}</td>
          <td>
             <ul>
             {% for error in form.topic.errors %}
@@ -16,8 +20,22 @@
       </tr>
 
       <tr>
-         <td colspan="3"><input type="submit" value="Luo viestiketju"/></td>
+         <td>{{ form.message.label }}</td>
+         <td colspan="2">{{ form.message(cols="60", rows="15") }}</td>
       </tr>
+
+      <tr>
+         <td><input type="submit" value="Luo viestiketju"/></td>
+         <td colspan="2">
+            <ul>
+               {% for error in form.message.errors %}
+                  <li>{{ error }}</li>
+               {% endfor %}
+            </ul>
+         </td>
+      </tr>
+
    </table>
 </form>
+
 {% endblock %}

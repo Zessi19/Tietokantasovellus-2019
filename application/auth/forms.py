@@ -12,7 +12,6 @@ class LoginForm(FlaskForm):
       csrf = False
 
 
-
 class RegisterForm(FlaskForm):
    name = StringField("Nimi:", [validators.Length(min=2, max=50)])
    username = StringField("Käyttäjätunnus:", [validators.Length(min=2, max=20)])
@@ -27,13 +26,11 @@ class RegisterForm(FlaskForm):
       csrf = False
 
 
-
 class ChangeNameForm(FlaskForm):
    name = StringField("Nimi:", [validators.Length(min=2, max=50)])
 
    class Meta:
       csrf = False
-
 
 
 class ChangeUsernameForm(FlaskForm):
@@ -44,7 +41,6 @@ class ChangeUsernameForm(FlaskForm):
          raise ValidationError('Käyttäjätunnus on jo käytössä')
    class Meta:
       csrf = False
-
 
 
 class ChangePasswordForm(FlaskForm):
