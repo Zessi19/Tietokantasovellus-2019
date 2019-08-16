@@ -2,10 +2,15 @@
 from flask import Flask
 app = Flask(__name__)
 
-# Use SQLalchemy
+# Use SQLalchemy or Heroku DataBase
+import os
 from flask_sqlalchemy import SQLAlchemy
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///threads.db"
-app.config["SQLALCHEMY_ECHO"] = True
+
+if os.environ.get("HEROKU"):
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+else:
+   app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///threads.db"
+   app.config["SQLALCHEMY_ECHO"] = True
 
 # Create db-object, which is used to handle database
 db = SQLAlchemy(app)
@@ -40,4 +45,7 @@ def load_user(user_id):
 #db.drop_all()
 
 # Create all datatables
-db.create_all()
+try: 
+    db.create_all()
+except:
+    pass
