@@ -2,6 +2,40 @@
 
 Dokumentti sisältää lyhyekön läpikäynnin harjoitustyön tilasta ja lisätyistä toiminnallisuuksista kyseisellä viikolla. Projektin kasvaessa dokumentaatioon tullaan sisällyttämään myös muita tiedostoja, joihin viitataan tässä viikoittaisin projektin läpikäynnissä.
 
+## Week 4
+
+Materiaalissa edetty Osa3, Osa4, selattu Osa5 authentication
+* Kirjautuneelle käyttäjälle lisätty Omat tiedot sivu (Account taulu)
+  * Vaihda nimi
+  * Vaihda käyttäjätunnus
+  * Vaihda salasana
+* Lisätty kolmas taulu Posts
+* Yhdistetty kaikki kolme taulua Account, Thread, Post
+  * Kaksi monimutaisempaa yhteenvetokyselyä, jotka käytetään ja näytetään käyttäjälle kun luotu viestiketju avaataan
+* Thread taulu: Viestiketjua luotaessa annetaan käyttäjä luo otsikon lisäksi myös itse viestin
+* Post taulu
+  * Viestiketjua klikatessa kaikki ketjuun liittyvät viestit haetaan ja näytetään
+  * Jokainen viesti voidaan poistaa viestin perässä olevasta painikkeesta
+* Heroku: PostgreSQL otettu käyttöön
+* Tietokanta taulujen rakennetta fiksattu, kaikki kolme taulua perii Base taulun (id, created, modified) ja "turha" yhteys Threadin ja Accountin välillä poistettu
+* Login required lisätty kaikkiin toistaiseksi järkeviin ja pakollisiin paikkoihin eli Account tauluun liittyviin tehtäviin ja uuden viestiketjun + ekan postauksen luomiseen.
+* Ulkoasua hiottu "retro tyyliin" itse css-komennoilla, viestiketjujen näkymä tulee vielä kehittymään paljon. Ensin pitää kuitenkin toteuttaa puuttuvat toiminnot
+* README.md tietokantakaavio kuva päivitetty!
+* Koska Post taulun priority muuttujalla ilmaistaan aloituspostausta (mahdollistaa adminille mahdollisuuden voi luoda uusi aloituspostauks tai sen yläpuolella näkyvä "Sticky" postaus)
+
+
+Harjoitustyö eteni tällä viikolla aika lailla suunnitelmien mukaan. Keskustelufoorumissa on nyt kolme keskeisintä taulua + perittävä Base taulu, jotka on yhdistetty toisiinsa tietokantakaavion osoittamalla tavalla. Viikon isoin ja hieman ulospäin näkymätön muutos oli tietokantataulu rakenteen päivitys, missä Account, Thread, Post ensin perivät Base taulun ja "turha" yhteys Account ja Thread taulun välissä on poistettu. Yhteyden poisto selkeyttää esim. tapausta missä käyttäjätili poistetaan ja kaikki käyttäjän viestit halutaan poistaa. Tällöin käyttäjän luomia threadeja ei kuitenkaan tarvii poistaa tai asiasta ei muodostu ongelmaa (threadi jäisi ilman käyttäjää -> pitäisi tehdä jokin deleted user hässäkkä, joka on liian paljon tämän projektin laajuuteen).
+
+Nyt käyttäjän luodessa uusi viestiketju, täytyy hänen luoda myös aloitusviesti. Viestiketjujen nimeä klikatessa avautuu näkymä kaikista ketjun viesteistä (toistaiseksi vain 1 tai 0 viestiä). Vaikka viestejä olisi vain yksi eli aloitusviesti, tekee ohjelma kaksi toimivaa SQL kyselyä, joilla haetaan ensin Threadin tiedot ja sitten kaikki Threadiin liittyvät viestit, jotka on järjestetty ensin priorityn mukaan (aloituspostaus 1, muuut postaukset 0) ja sitten luomisajan mukaan. Lisäksi kaikki käyttäjät voivat poistaa viestin, jolloin pelkästään threadi jää jäljelle (kaikilla admin oikeudet toistaiseksi).
+
+HUOM! Koska Post toiminnallisuutta ollaan lisäämässä, jouduttaan luonnollisesti muuttumaan myös viestiketjujen toiminnallisuutta. Tällä hetkellä kannattaa ensin poistaa viestiketjusta kaikki viestit ja vasta sitten itse viestiketju. Muuten yhteys viestiketjun viesteihin katoaa ja ne jäävät turhaan viemään tilaa tietokannasta. Tämä tullaan korjaamaan heti kunhan yksittäisten viestien toiminnallisuus on ensin saatu valmiiksi. Tässä pitää rakentaa pohja ensin (Viestit) ja vasta sitten fiksata Viestiketjut taas kuntoon.
+
+Account taulun toiminnallisuus alkaa näyttää jo hyvältä. Käyttäjä voi katsoa omia tietojansa ja vaihtaa rekisteröityä nimeä, käyttäjätunnusta tai salasanaa. Poista käyttäjätiliä painaessa ei kuulu tapahtua vielä mitään (html button painike). Voidaan asettaa käyttöön vasta kun Thread ja Post toiminnallisuudet OK.
+
+
+Linkit korjattu/siistitty README.md
+
+
 ## Week 3
 
 Materiaalissa edetty kohtaan Osa3 2.4/2.5, sovelluksessa toimii
