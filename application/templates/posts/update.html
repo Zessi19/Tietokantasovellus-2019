@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+<form method="POST" action="{{ url_for('posts_update', threadId=threadId, postId=postId) }}">
+   <table>
+      <caption style="font-weight:bold; font-size:140%;"> Muokkaa viestiä </caption>
+      <th><td colspan="3"></td></th>
+
+      <tr>
+         <td>{{ form.message.label }}</td>
+         <td colspan="2">{{ form.message(cols="60", rows="15") }}</td>
+      </tr>
+
+      <tr>
+         <td><input type="submit" value="Vahvista"/></td>
+         <td colspan="2">
+            <ul>
+               {% for error in form.message.errors %}
+                  <li>{{ error }}</li>
+               {% endfor %}
+            </ul>
+         </td>
+      </tr>
+
+   </table>
+</form>
+
+
+{% endblock %}

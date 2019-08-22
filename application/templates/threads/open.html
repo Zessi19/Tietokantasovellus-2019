@@ -8,24 +8,46 @@
       <tr>
          <th style="font-weight: normal"> Käyttäjätunnus </th>
          <th style="font-weight: normal"> Viesti </th>
+         
+         <th>
+            <div style=float:right;>
+               <form method="GET" action="{{ url_for('posts_new', threadId=threadData[0]) }}">
+                  <input type="submit" value="Uusi viesti"/>
+               </form>
+            </div>
+         </th>
       </tr>
 
       {% for row in postsData %}
          <tr>
             <td id="td01" style="font-weight: bold">{{ row[0] }}</td>
-          
             <td id="td01"><textarea>{{ row[2] }}</textarea></td>
 
             <td id="td01">
                <div style=float:right;>
-                  <form method="POST" action="{{ url_for('posts_remove', postId=row[1], threadId=threadData[0]) }}">
+                  <form method="POST" action="{{ url_for('posts_remove', threadId=threadData[0], postId=row[1]) }}">
                      <input type="submit" value="Poista"/>
+                  </form>
+               </div>
+
+               <div style=float:right;>
+                  <form method="GET" action="{{ url_for('posts_update', threadId=threadData[0], postId=row[1]) }}">
+                     <input type="submit" value="Muokkaa"/>
                   </form>
                </div>
             </td>
          </tr>
-
       {% endfor %}
+
+      <tr>
+         <td colspan="3">
+            <div style=float:right;>
+               <form method="GET" action="{{ url_for('posts_new', threadId=threadData[0]) }}">
+                  <input type="submit" value="Uusi viesti"/>
+               </form>
+            </div>
+         </td>
+      </tr>
 
    </table>
 {% endblock %}

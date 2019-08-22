@@ -4,7 +4,6 @@ from flask_login import login_required, current_user
 from application import app, db
 from application.threads.models import Thread
 from application.threads.forms import ThreadForm, ChangeTopicForm
-
 from application.posts.models import Post
 
 # --------------------
@@ -14,7 +13,6 @@ from application.posts.models import Post
 @app.route("/threads", methods=["GET"])
 def threads_index():
    threadList = Thread.query.all()
-
    return render_template("threads/list.html", threadList=threadList)
 
 
@@ -24,16 +22,14 @@ def threads_index():
 
 @app.route("/threads/<threadId>/open", methods=["GET"])
 def threads_open(threadId):
-   
+ 
    # List(4 elements): [0] Thread.id, [1] Thread.topic, [2] Thread.created, [3] Thread.modified
    threadData = Thread.get_thread(threadId)
 
    # List of list(5 elements): [0] Account.username, [1] Post.id, [2] Post.message, [3] Post.created, [4] Post.modified
-   postsData = Post.get_posts_in_thread(threadId)   
+   postsData = Post.get_posts_in_thread(threadId)
 
-   ## HTML sivu jossa Topic + ketjun Viesit (username, message)
    return render_template("threads/open.html", threadData=threadData, postsData=postsData)
-
 
 
 # ---------------------
@@ -64,7 +60,7 @@ def threads_create():
 
 
 # -----------------------
-#   Change Thread Topic
+#   Update Thread Topic
 # -----------------------
 
 @app.route("/threads/<threadId>/update", methods=["GET", "POST"])
@@ -86,7 +82,7 @@ def threads_update(threadId):
 
 
 # -----------------
-#   Remove Thread    ### LISÄÄ KAIKKIEN KETJUN POST:ien POISTO ###
+#   Remove Thread  
 # -----------------
 
 @app.route("/threads/<threadId>/remove", methods=["POST"])

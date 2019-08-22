@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div style="clear:both"></div>
+
+<form method="POST" action="{{ url_for('posts_new',threadId=threadId) }}">
+   <table>
+      <caption style="font-weight:bold; font-size:140%;"> Uusi viesti </caption>
+      <th><td colspan="3"></td></th>
+
+      <tr>
+         <td>{{ form.message.label }}</td>
+         <td colspan="2">{{ form.message(cols="60", rows="15") }}</td>
+      </tr>
+
+      <tr>
+         <td><input type="submit" value="Lähetä viesti"/></td>
+         <td colspan="2">
+            <ul>
+               {% for error in form.message.errors %}
+                  <li>{{ error }}</li>
+               {% endfor %}
+            </ul>
+         </td>
+      </tr>
+
+   </table>
+</form>
+
+
+{% endblock %}

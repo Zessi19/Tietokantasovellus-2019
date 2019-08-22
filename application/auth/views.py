@@ -132,10 +132,3 @@ def auth_change_password():
 def auth_remove():
 
    return redirect(url_for("threads_index"))
-
-
-
-
-
-
-

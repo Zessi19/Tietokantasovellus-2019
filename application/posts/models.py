@@ -31,3 +31,12 @@ class Post(Base):
 
       return response
 
+
+   @staticmethod
+   def total_posts():
+      statement = text("SELECT COUNT(*) FROM Post")
+      res = db.engine.execute(statement)
+
+      for row in res:
+         response = row[0]
+      return response

@@ -1,6 +1,24 @@
 {% extends "layout.html" %}
 
 {% block body %}
+<div style="clear:both"></div>
 
+<table class="tb_index" style="font-weight:bold"/>
+   <tr><td colspan="2"></td></tr>
+   
+   <tr>
+      <td> Viestiketjuja yhteensä: </td>
+      <td>{{ countThreads }} </td>                    
+   </tr>
+
+   <tr>
+      <td> Viestejä yhteensä: </td>
+      <td>{{ countPosts }}</td>
+   </tr>
+
+    <tr><td colspan="2"></td></tr>
+</table>
+
+<img class="img_mario" src="/static/images/mario.png" alt="Mario juoksemassa/hyppäämässä"/>
 
 {% endblock %}

@@ -25,3 +25,16 @@ class Thread(Base):
 
       return response
 
+
+   @staticmethod
+   def total_threads():
+      statement = text("SELECT COUNT(*) FROM Thread")
+      res = db.engine.execute(statement)
+
+      for row in res:
+         response = row[0]
+      return response
+
+
+
+
