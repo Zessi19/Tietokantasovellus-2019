@@ -7,7 +7,8 @@
   
 * Sovelluksen tila, [weeklyUpdate:](https://github.com/Zessi19/Tietokantasovellus-2019/blob/master/documentation/WeeklyUpdate.md)
 
-* [Käyttötapaukset:](https://github.com/Zessi19/Tietokantasovellus-2019/blob/master/documentation/UserCases.md)
+* Asennusopas: [InstallationGuide.md](https://github.com/Zessi19/Tietokantasovellus-2019/blob/master/documentation/InstallationGuide.md)
+* Käyttöopas: [UserGuide.md](https://github.com/Zessi19/Tietokantasovellus-2019/blob/master/documentation/UserGuide.md)
 
 ## Sovelluksen kuvaus
 
