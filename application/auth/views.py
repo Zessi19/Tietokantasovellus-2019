@@ -132,10 +132,11 @@ def auth_change_password():
 @app.route("/auth/removeUser", methods=["POST"])
 def auth_remove():
    userPosts = User.user_post_ids(current_user.id)
-   
-   for i in userPosts:
-      dbPost = Post.query.get(i)
-      db.session().delete(dbPost)
+ 
+   if userPosts[0] is not None:  
+      for i in userPosts:
+         dbPost = Post.query.get(i)
+         db.session().delete(dbPost)
 
    dbUser = User.query.get(current_user.id)
    logout_user()

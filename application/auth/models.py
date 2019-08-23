@@ -34,23 +34,8 @@ class User(Base):
 
 
    @staticmethod
-   def count_user_threads_and_posts(userId):
-      statement = text("SELECT Post.priority, COUNT(Post.id) FROM Account"
-                  " LEFT JOIN Post ON Account.id = Post.account_id"
-                  " WHERE Account.id = :userId"
-                  " GROUP BY Post.priority").params(userId=userId)
-      res = db.engine.execute(statement)
-
-      response = []
-      for row in res:
-         response.append([row[0], row[1]])
-
-      return response
-
-
-   @staticmethod
    def count_user_threads(userId):
-      statement = text("SELECT COUNT(*) FROM Account"
+      statement = text("SELECT COUNT(Post.id) FROM Account"
                   " LEFT JOIN Post ON Account.id = Post.account_id"
                   " WHERE Post.priority = 1 AND Account.id = :userId").params(userId=userId)
       res = db.engine.execute(statement)
@@ -62,7 +47,7 @@ class User(Base):
 
    @staticmethod
    def count_user_posts(userId):
-      statement = text("SELECT COUNT(*) FROM Account"
+      statement = text("SELECT COUNT(Post.id) FROM Account"
                   " LEFT JOIN Post ON Account.id = Post.account_id"
                   " WHERE Account.id = :userId").params(userId=userId)
       res = db.engine.execute(statement)
@@ -74,7 +59,7 @@ class User(Base):
 
    @staticmethod
    def user_post_ids(userId):
-      statement = text("SELECT Post.id, Post.message FROM Account"
+      statement = text("SELECT Post.id FROM Account"
                   " LEFT JOIN Post ON Account.id = Post.account_id"
                   " WHERE Account.id = :userId").params(userId=userId)
       res = db.engine.execute(statement)
@@ -82,7 +67,6 @@ class User(Base):
       response = []
       for row in res:
          response.append(row[0])
-
       return response
 
 
