@@ -17,7 +17,7 @@ def posts_new(threadId):
 
    form = PostForm(request.form)
    if not form.validate():
-      return render_template("posts/new.html", form=form)
+      return render_template("posts/new.html", form=form, threadId=threadId)
 
    dbPost = Post(form.message.data, 0)
    dbPost.account_id = current_user.id

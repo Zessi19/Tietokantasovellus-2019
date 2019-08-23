@@ -16,12 +16,17 @@
       <td>{{ countPosts }}</td>
    </tr>
 
-    <tr rowspan="2"><td colspan="2"></td></tr>
+    <tr><td colspan="2"></td></tr>
 </table>
 
-<div style="text-align:center">
-   <img class=img_index src="/static/images/link.png" alt="Link iskee miekalla (tLoZ: Ocarina of Time)"/>
-   <img class=img_index src="/static/images/mario.png" alt="Mario juoksee virnistäen (Super Mario Odyssey)"/>
+<div class="index_imgRow">
+   <div class="index_imgColumn_left">
+      <img src="/static/images/link.png" alt="Link iskee miekalla (tLoZ: Ocarina of Time)" style="width:100%">
+   </div>
+
+   <div class="index_imgColumn_right">
+      <img src="/static/images/mario.png" alt="Mario juoksee virnistäen (Super Mario Odyssey)" style="width:100%">
+   </div>
 </div>
 
 {% endblock %}

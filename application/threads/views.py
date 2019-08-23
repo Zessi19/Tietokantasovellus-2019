@@ -65,19 +65,19 @@ def threads_create():
 
 @app.route("/threads/<threadId>/update", methods=["GET", "POST"])
 def threads_update(threadId):
-   oldTopic = Thread.query.get(threadId).topic
+   dbThread = Thread.query.get(threadId)
 
    if request.method == "GET":
-      return render_template("threads/update.html", form=ChangeTopicForm(), threadId=threadId, oldTopic=oldTopic)
+      form = ChangeTopicForm()
+      form.topic.data = dbThread.topic
+      return render_template("threads/update.html", form=form, threadId=threadId)
 
    form = ChangeTopicForm(request.form)
    if not form.validate():
-      return render_template("threads/update.html", form=form, threadId=threadId, oldTopic=oldTopic)
+      return render_template("threads/update.html", form=form, threadId=threadId)
 
-   dbThread = Thread.query.get(threadId)
    dbThread.topic = form.topic.data
    db.session().commit()
-
    return redirect(url_for("threads_index"))
 
 
@@ -87,11 +87,16 @@ def threads_update(threadId):
 
 @app.route("/threads/<threadId>/remove", methods=["POST"])
 def threads_remove(threadId):
+   postsData = Post.get_posts_in_thread(threadId)
+   
+   for row in postsData:
+      dbPost = Post.query.get(row[1])
+      db.session().delete(dbPost)
 
    dbThread = Thread.query.get(threadId)
    db.session().delete(dbThread)
-   db.session().commit()
 
+   db.session().commit()
    return redirect(url_for("threads_index"))
 
 

@@ -4,26 +4,25 @@
 
 <form method="POST" action="{{ url_for('threads_update', threadId=threadId) }}">
    <table>
-      <tr>
-         <td> Vanha otsikko: </td>
-         <td> {{ oldTopic }} </td>
-      </tr>
+      <caption style="font-weight:bold; font-size:140%;"> Muokkaa otsikkoa </caption>
+      <th><td colspan="3"></td></th>
 
       <tr>
-         <td> Uusi otsikko: </td>
+         <td> Otsikko: </td>
          <td> {{ form.topic}} </td>
          <td>
             <ul>
-            {% for error in form.topic.errors %}
-               <li>{{ error }}</li>
-            {% endfor %}
+               {% for error in form.topic.errors %}
+                  <li>{{ error }}</li>
+               {% endfor %}
             </ul>
          </td>
       </tr>
 
       <tr>
-         <td colspan="2"><input type="submit" value="Muokkaa otsikkoa"/></td>
+         <td colspan="3"><input type="submit" value="Vahvista"/></td>
       </tr>
+
    </table>
 </form>
 
