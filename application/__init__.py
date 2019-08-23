@@ -2,6 +2,10 @@
 from flask import Flask
 app = Flask(__name__)
 
+# Jinja & Moment.js (Timestamp parser)
+from .momentjs import momentjs
+app.jinja_env.globals['momentjs'] = momentjs
+
 # Use SQLalchemy or Heroku DataBase
 import os
 from flask_sqlalchemy import SQLAlchemy

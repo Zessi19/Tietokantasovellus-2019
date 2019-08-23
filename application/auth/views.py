@@ -4,6 +4,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from application import app, db
 from application.auth.models import User
 from application.auth.forms import LoginForm, RegisterForm, ChangeNameForm, ChangeUsernameForm, ChangePasswordForm
+from application.posts.models import Post
 
 # ----------------
 #   Login/Logout
@@ -31,7 +32,6 @@ def auth_logout():
     return redirect(url_for("threads_index"))
 
 
-
 # ------------
 #   Register 
 # ------------
@@ -53,7 +53,6 @@ def auth_register():
    return redirect(url_for("auth_login"))
 
 
-
 # ---------------------------------
 #   User information and updating
 # ---------------------------------
@@ -61,7 +60,10 @@ def auth_register():
 @app.route("/auth/userinfo", methods=["GET"])
 @login_required
 def auth_userinfo():
-   return render_template("auth/userinfo.html")
+   countUserThreads = User.count_user_threads(current_user.id) 
+   countUserPosts = User.count_user_posts(current_user.id)
+
+   return render_template("auth/userinfo.html", countUserThreads=countUserThreads, countUserPosts=countUserPosts)
 
 
 @app.route("/auth/changeName", methods=["GET", "POST"])
@@ -122,13 +124,34 @@ def auth_change_password():
    return redirect(url_for("auth_userinfo"))
 
 
-
-#### KESKEN #####
 # ---------------
 #   Remove user
 # ---------------
+
 @login_required
 @app.route("/auth/removeUser", methods=["POST"])
 def auth_remove():
+   userPosts = User.user_post_ids(current_user.id)
+   
+   for i in userPosts:
+      dbPost = Post.query.get(i)
+      db.session().delete(dbPost)
 
+   dbUser = User.query.get(current_user.id)
+   logout_user()
+   db.session().delete(dbUser)
+
+   db.session().commit()         
    return redirect(url_for("threads_index"))
+
+
+
+
+
+
+
+
+
+
+
+

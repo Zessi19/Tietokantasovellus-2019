@@ -37,34 +37,36 @@
    </tr>
 
    <tr>
+      <td> Käyttäjätunnus luotu: </td>
+      <td colspan="2"> {{ momentjs(current_user.created).format('LL') }}</td>
+   </tr>
+
+   <tr>
       <td> Käyttöoikeudet: </td>
-      <td>
-      {% if current_user.admin == True %}
-         admin
-      {% else %}
-         user
-      {% endif %}
+      <td colspan="2">
+         {% if current_user.admin == True %}
+            admin
+         {% else %}
+            user
+         {% endif %}
       </td>
-      <td></td>
    </tr>
 
    <tr>
       <td> Aloitetut viestiketjut: </td> 
-      <td> X </td>
-      <td></td>
+      <td colspan="2"> {{ countUserThreads}} </td>
    </tr>
 
    <tr>
       <td> Viestit: </td>
-      <td> Y </td>
-      <td></td>
+      <td colspan="2"> {{ countUserPosts }} </td>
    </tr>
 
    <tr><td colspan="3"></td></tr>
 </table>
 
 <form method="POST" action="{{ url_for('auth_remove') }}">
-   <input type="button" value="Poista käyttäjätili"/>
+   <input type="submit" value="Poista käyttäjätili"/>
 </form>
 
 {% endblock %}
