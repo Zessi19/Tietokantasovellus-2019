@@ -2,6 +2,10 @@
 
 Sovelluksen käyttö ja toiminnallisuuksien toteutus tapahtuu "yläpalkissa" olevien nimettyjen linkkien avulla ja tutkittavalla sivulla aukeavien toiminnallisuuksien kautta. Alla on kuvattu reittit tällä hetkellä toteutettujen toiminnallisuuksien suorittamiseen. 
 
+# Etusivu
+
+* **Statistics:** Etusivulla tilastoja foorumista + pari kuvaa
+
 # Authentication/Login (Kirjautuminen ja käyttäjä)
 
 * **Rekisteröidy:** yläpalkki "Rekisteröidy" -> Syötä nimi, username, 2 x salasana (Nimi pituus (2,50), Username pituus (2,20), Salasana pituus (8,50), Salasanojen pitää täsmätä, username ei saa olla jo olemassa) -> "Rekisteröidy" -> redirect (Kirjaudu)
@@ -15,19 +19,23 @@ Sovelluksen käyttö ja toiminnallisuuksien toteutus tapahtuu "yläpalkissa" ole
    * **Muuta Käyttäjätunnus:** Käyttäjätunnus -> Vaihda palkki -> yhtenevä rekisteröinnin kanssa
    * **Muuta Salasana:** Salasana -> Vaihda palkki -> yhtenevä rekisteröinnin kanssa
 
-* **HUOM! Poista käyttäjätili ei toiminassa toistaiseksi:** Järkevää toteuttaavaa vasta kun Thread ja Post toiminnallisuus täysin valmis
+* **Poista käyttäjätili: Poistaa käyttäjätilin ja kaikki käyttäjän lähettäätä viestit.** Käyttäjän aloittamat viestiketjut säilytetään, mutta aloitusviestit poistetaan.
 
 
 # Threads (Viestiketjut)
 
 * **Uusi viestiketju:** yläpalkki "Aloita uusi keskustelu" -> Otsikko (min 2, max 100 merkkiä), Viesti (min 2, max 4000 merkkiä) -> "Luo viestiketju" -> redirect (Threads List)
 * **Näytä viestiketjut:** yläpalkki "Näytä keskustelut"
-  * **HUOM HUOM! Poista viestiketju:** Palkki viestiketjun otsikon perässä, !!! Poista ensin aloitus viesti ketjun sisältä !!!
+  * **Poista viestiketju:** Palkki viestiketjun otsikon perässä, **Poistaa viestiketjun ja kaikki ketjussa olevat viestit.**
   * **Muokkaa viestiketjua (otsikko):** Palkki viestiketjun otsikon perässä, Otsikko (min 2, max 100 merkkiä), näkymä vanhaan otsikkoon
 
 * **Avaa viestiketju:** klikkaa viestiketjun nimeä
 
 
 # Posts (Viestit)
+* **Uusi viesti:** Avaa viestiketju, palkki "Uusi viesti" sekä ketjun alussa että lopussa
+* **Muokkaa viestiä:** Avaa viestiketju, palkki "Muokkaa"
+* **Poista viesti:** Avaa viestiketju, poista palkki viestin perässä -> redirect(viestiketju)
 
-* **Poista viestiketju:** avaa viestiketju, poista palkki viestin perässä -> redirect(viestiketju)
+
+
