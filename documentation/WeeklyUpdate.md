@@ -2,6 +2,22 @@
 
 Dokumentti sisältää lyhyekön läpikäynnin harjoitustyön tilasta ja lisätyistä toiminnallisuuksista kyseisellä viikolla. Projektin kasvaessa dokumentaatioon tullaan sisällyttämään myös muita tiedostoja, joihin viitataan tässä viikoittaisin projektin läpikäynnissä.
 
+## Week 5
+
+Projektissa on nyt valmiina kaikkiin kolmeen päätauluun (Account, Thread, ja Post) liittyvä perustoiminnallisuus eli kaikkien taulujen full GRUD, Threadien ja Postien oikeaoppinen näyttäminen ja taulujen järkevä käyttätyminen kun toista taulua muutetaan. Esimerkiksi jos käyttäjä poistaa viestiketjun, sovellus poistaa myös kaikki viestiketjussa olevat viestit eivätkä ne jää sovelluksen ulottumiin viemään tilaa tietokannasta. Vastaavasti, jos käyttäjä haluaa poistaa käyttäjätilinsä, poistuu samalla kaikki käyttäjän lähettämät viestit, mutta mahdollisesti aloitetut viestiketjut jäävät jäljelle.
+
+Muita uusia ominaisuuksia:
+* Etusivulle useita uusia toiminnallisuuksia (SQL queries + kuvia)
+* Omat tiedot sivulle lisätty toiminnallisuutta (SQL queries)
+* Otettu käyttöön Moment.js kirjasto parsimaan TIMESTAMP (käytetään tällä hetkellä omat tiedot sivulla, myöhemmin posteissa myös)
+* lisätty Documentation/InstallationGuide.md
+* Sovelluksessa näkyvät palkit/toiminnallisuudet toimivat järkevästi ja oikein
+
+Kaikki viikolla 5 vaadittavien etappien pitäisi siis olla tehty (toiminnallisuuden täydentäminen, käytettävyyden viilaus, alustava asennus- ja käyttöohje). Autorisointi on vielä kesken, mutta nythän piti olla vasta aloitettu viikon 5 etapit.
+Sovelluksessa on nyt useita yhteenveto kyselyitä, mutta tehdyissä ei käytetä GROUP BY komentoa. GROUP BY komentoa ei ole vielä järkeä käyttää sovelluksessa (ensi viikolla Category taulun yhteydessä asia muuttuu). Tein jo yhden "väkisin", mutta se osoittauitui hyvin vaikeaksi ja pugiseksi tapauksissa, jossa käyttäjällä ei ollut esim. yhteen viestiä tai viestiketjua. Mielestäni tässä tapauksessa olisi väärin vähentään pisteitä tällä viikolla uudestaan, vaikka ominaisuus vaaditaan viikon 4 etapeissa.
+
+
+
 ## Week 4
 
 Materiaalissa edetty Osa3, Osa4, selattu Osa5 authentication
