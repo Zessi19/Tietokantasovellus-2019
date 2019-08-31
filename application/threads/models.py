@@ -8,8 +8,8 @@ from sqlalchemy.sql import text
 # --------------------
 
 ThreadCategory = db.Table("ThreadCategory",
-   db.Column("thread_id", db.Integer, db.ForeignKey("thread.id"), primary_key=True),
-   db.Column("category_id", db.Integer, db.ForeignKey("category.id"), primary_key=True)
+   db.Column("thread_id", db.Integer, db.ForeignKey("Thread.id"), primary_key=True),
+   db.Column("category_id", db.Integer, db.ForeignKey("Category.id"), primary_key=True)
 )
 
 
