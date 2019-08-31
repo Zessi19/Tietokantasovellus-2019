@@ -7,7 +7,7 @@ from sqlalchemy.sql import text
 #    ThreadCategory
 # --------------------
 
-threadCategory = db.Table("threadCategory",
+ThreadCategory = db.Table("ThreadCategory",
    db.Column("thread_id", db.Integer, db.ForeignKey("thread.id"), primary_key=True),
    db.Column("category_id", db.Integer, db.ForeignKey("category.id"), primary_key=True)
 )
@@ -20,7 +20,7 @@ threadCategory = db.Table("threadCategory",
 class Thread(Base):
    topic = db.Column(db.String(100), nullable=False)
    posts = db.relationship("Post", backref='thread', lazy=True)
-   categories = db.relationship("Category", secondary=threadCategory, backref=db.backref("threads"), lazy=True)
+   categories = db.relationship("Category", secondary=ThreadCategory, backref=db.backref("threads"), lazy=True)
 
    def __init__(self, topic):
       self.topic = topic
