@@ -2,6 +2,20 @@
 
 Dokumentti sisältää lyhyekön läpikäynnin harjoitustyön tilasta ja lisätyistä toiminnallisuuksista kyseisellä viikolla. Projektin kasvaessa dokumentaatioon tullaan sisällyttämään myös muita tiedostoja, joihin viitataan tässä viikoittaisin projektin läpikäynnissä.
 
+## Week 6
+
+Projektiin on lisätty viimeiset puuttuvat isot kokonaisuudet: Kategorioiden (yksi tai useampi) liittäminen Threadiin ja User authentication käyttäjän userRole muuttujan avulla (User, Admin tai Master).
+
+Kategoriat on lisätty erillisenä tauluna (Category) ja liitostauluna (ThreadCategory). Kategoriat lisätään Threadin luomisen yhteydessä intuitiivisesti raksittamalla laatikoista sopivat. Toimii: uuden threadin luomisessa, threadien listauksessa ja threadin poistossa. Työnalla: kategorieoiden vaihtaminen threadia muokatessa, valdiointi (min yksi kategoria). Kategoriat luodaan thread/__init__.py tiedostossa olevan event handlerin avulla tietokannan luonnin yhteydessä.
+
+User authentication on toteutettu kurssin materiaalin malli mukaillen. Sovelluksessa on kolme käyttäjä luokkaa User, Admin ja Master. Master ja Admin käyttäjät luodaan tietokannan luonnin yhteydessä /auth/__init__.py tiedoston event handlerin avulla. Käyttäjän rekisteröityessä käyttäjätunnuksen luokaksi tulee User. Tällä hetkellä kirjautuminen vaaditaan (vähintään User) kaikkiin foorumin rakenteeseen vaikuttaviin toiminnallisuuksiin. Viikonlopun/ensi viikon aikana Muiden viestien ja ketjujen poistaminen rajataan vain admin/master käyttäjälle.
+
+Kuten todettiin foorumin kaikki oleellisimmat rakenteet ovat nyt ainakin lähestulkoon valmiit. Tulevan viikon aikana täytyy vielä crunchata ja tehdä hieno säätöä foorumin ulkoasu ja lisätoiminnallisuuksien (threadin järjestäminen eri kriteerein, viesteihin timestamp created yms.) liittyen.
+
+Sovellus toimii tällä hetkellä (lauantai ilta) ilman ongelmia tai virhe-ilmoituksia lokaalisesti. Jostain syystä saan kuitenkin Herokusta erroria ilmeisesti Kategoria liitostauluun liittyen. Koitan fiksata ongelman, ja joudun varmaan tekemään aika monta git commitia herokuun liittyen. Kuten sovimme sähköpostilla, sain yhden päivän lisäaikaa week 6 deadlineen.  
+
+
+
 ## Week 5
 
 Projektissa on nyt valmiina kaikkiin kolmeen päätauluun (Account, Thread, ja Post) liittyvä perustoiminnallisuus eli kaikkien taulujen full GRUD, Threadien ja Postien oikeaoppinen näyttäminen ja taulujen järkevä käyttätyminen kun toista taulua muutetaan. Esimerkiksi jos käyttäjä poistaa viestiketjun, sovellus poistaa myös kaikki viestiketjussa olevat viestit eivätkä ne jää sovelluksen ulottumiin viemään tilaa tietokannasta. Vastaavasti, jos käyttäjä haluaa poistaa käyttäjätilinsä, poistuu samalla kaikki käyttäjän lähettämät viestit, mutta mahdollisesti aloitetut viestiketjut jäävät jäljelle.
