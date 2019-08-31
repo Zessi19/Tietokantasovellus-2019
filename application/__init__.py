@@ -44,7 +44,6 @@ def load_user(user_id):
     return User.query.get(user_id)
 
 
-
 # Reset all datatables
 #db.drop_all()
 

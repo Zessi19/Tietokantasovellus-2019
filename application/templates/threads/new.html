@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
   
 {% block body %}
+<div style="clear:both"></div>
+
 
 <form method="POST" action="{{ url_for('threads_create') }}">
    <table>
@@ -8,8 +10,8 @@
       <th><td colspan="3"></td></th>
       
       <tr>
-         <td>{{ form.topic.label}}</td>
-         <td>{{ form.topic}}</td>
+         <td>{{ form.topic.label }}</td>
+         <td>{{ form.topic }}</td>
          <td>
             <ul>
             {% for error in form.topic.errors %}
@@ -20,13 +22,29 @@
       </tr>
 
       <tr>
-         <td>{{ form.message.label }}</td>
-         <td colspan="2">{{ form.message(cols="60", rows="15") }}</td>
+         <td>Alue:</td>
+         <td colspan="2">
+            {{ form.yleinen.label }} {{ form.yleinen}} {{ form.retro.label }} {{ form.retro }}
+         </td> 
       </tr>
 
       <tr>
-         <td><input type="submit" value="Luo viestiketju"/></td>
+         <td></td>
          <td colspan="2">
+            {{ form.switch.label }} {{ form.switch }} {{ form.wii.label }} {{ form.wii }} 
+            {{ form.wiiu.label }} {{ form.wiiu }} {{ form.ds.label }} {{ form.ds }} 
+            {{ form.threeDs.label }} {{ form.threeDs }}
+         </td>
+      </tr>
+
+      <tr>
+         <td> {{ form.message.label }}</td>
+         <td colspan="2"> {{ form.message(cols="60", rows="15") }}</td>
+      </tr>
+
+      <tr>
+         <td colspan="2"><input type="submit" value="Luo viestiketju"/></td>
+         <td>
             <ul>
                {% for error in form.message.errors %}
                   <li>{{ error }}</li>

@@ -2,7 +2,7 @@ from flask import redirect, render_template, request, url_for
 from flask_login import login_required, current_user
 
 from application import app, db
-from application.threads.models import Thread
+from application.threads.models import Thread, Category
 from application.threads.forms import ThreadForm, ChangeTopicForm
 from application.posts.models import Post
 
@@ -12,7 +12,10 @@ from application.posts.models import Post
 
 @app.route("/threads", methods=["GET"])
 def threads_index():
-   threadList = Thread.query.all()
+
+   #List of lists(3 elements): [0] Thread.id, [1] Thread.topic, [2] List of Category names
+   threadList = Thread.get_default_threadList()
+
    return render_template("threads/list.html", threadList=threadList)
 
 
@@ -22,7 +25,7 @@ def threads_index():
 
 @app.route("/threads/<threadId>/open", methods=["GET"])
 def threads_open(threadId):
- 
+
    # List(4 elements): [0] Thread.id, [1] Thread.topic, [2] Thread.created, [3] Thread.modified
    threadData = Thread.get_thread(threadId)
 
@@ -49,6 +52,36 @@ def threads_create():
    dbThread = Thread(form.topic.data)
    db.session().add(dbThread)
    db.session().flush()
+
+   if (form.yleinen.data == True):
+      dbCategory = Category.query.filter_by(name="Yleinen").first()
+      dbThread.categories.append(dbCategory)
+      
+   if (form.retro.data == True):
+      dbCategory = Category.query.filter_by(name="Retro").first()
+      dbThread.categories.append(dbCategory)
+
+   if (form.wii.data == True):
+      dbCategory = Category.query.filter_by(name="Wii").first()
+      dbThread.categories.append(dbCategory)
+
+   if (form.wiiu.data == True):
+      dbCategory = Category.query.filter_by(name="Wii U").first()
+      dbThread.categories.append(dbCategory)
+
+   if (form.switch.data == True):
+      dbCategory = Category.query.filter_by(name="Switch").first()
+      dbThread.categories.append(dbCategory)
+
+   if (form.ds.data == True):
+      dbCategory = Category.query.filter_by(name="DS").first()
+      dbThread.categories.append(dbCategory)
+
+   if (form.threeDs.data == True):
+      dbCategory = Category.query.filter_by(name="3DS").first()
+      dbThread.categories.append(dbCategory)
+
+
 
    dbPost = Post(form.message.data, 1)
    dbPost.account_id = current_user.id
@@ -98,7 +131,6 @@ def threads_remove(threadId):
 
    db.session().commit()
    return redirect(url_for("threads_index"))
-
 
 
 

@@ -4,22 +4,28 @@
    <table>
       <tr>
          <th>Otsikko</th>
-         <th></th>
+         <th colspan="2">Alue</th>
       </tr>
 
       {% for i in threadList %}
          <tr>
-            <td id="td01"> <a href="{{ url_for('threads_open', threadId=i.id) }}">{{ i.topic }}</a> </td>
+            <td id="td01"><a href="{{ url_for('threads_open', threadId=i[0]) }}">{{ i[1] }}</a></td>
+
+            <td id="td01">
+               {% for j in i[2] %}
+                  {{ j }}
+               {% endfor %}
+            </td>
          
             <td id="td01">
                <div style=float:right;>
-                  <form method="POST" action="{{ url_for('threads_remove', threadId=i.id) }}">
+                  <form method="POST" action="{{ url_for('threads_remove', threadId=i[0]) }}">
                      <input type="submit" value="Poista"/>
                   </form>
                </div>
 
                <div style=float:right;>
-                  <form method="GET" action="{{ url_for('threads_update', threadId=i.id) }}">
+                  <form method="GET" action="{{ url_for('threads_update', threadId=i[0]) }}">
                      <input type="submit" value="Muokkaa"/>
                   </form>
                </div>
