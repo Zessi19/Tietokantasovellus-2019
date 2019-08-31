@@ -1,7 +1,7 @@
 from flask import redirect, render_template, request, url_for
-from flask_login import login_required, current_user
+from flask_login import current_user
 
-from application import app, db
+from application import app, db, login_required
 from application.posts.models import Post
 from application.posts.forms import PostForm
 
@@ -10,8 +10,8 @@ from application.posts.forms import PostForm
 # ---------------
 
 @app.route("/posts/<threadId>/new", methods=["GET", "POST"])
-@login_required
-def posts_new(threadId):
+@login_required()
+def posts_new(threadId): 
    if request.method == "GET":
       return render_template("posts/new.html", form=PostForm(), threadId=threadId)
 
@@ -33,6 +33,7 @@ def posts_new(threadId):
 # ---------------
 
 @app.route("/posts/<threadId>/<postId>/update", methods=["GET", "POST"])
+@login_required()
 def posts_update(threadId, postId):
    dbPost = Post.query.get(postId)
 
@@ -55,6 +56,7 @@ def posts_update(threadId, postId):
 # ---------------
 
 @app.route("/posts/<threadId>/<postId>/remove", methods=["POST"])
+@login_required()
 def posts_remove(threadId, postId):
 
    dbPost = Post.query.get(postId)

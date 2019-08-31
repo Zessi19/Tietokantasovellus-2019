@@ -1,7 +1,7 @@
 from flask import redirect, render_template, request, url_for
-from flask_login import login_user, logout_user, login_required, current_user
+from flask_login import login_user, logout_user, current_user
 
-from application import app, db
+from application import app, db, login_required
 from application.auth.models import User
 from application.auth.forms import LoginForm, RegisterForm, ChangeNameForm, ChangeUsernameForm, ChangePasswordForm
 from application.posts.models import Post
@@ -26,10 +26,10 @@ def auth_login():
 
 
 @app.route("/auth/logout")
-@login_required
+@login_required()
 def auth_logout():
-    logout_user()
-    return redirect(url_for("threads_index"))
+   logout_user()
+   return redirect(url_for("threads_index"))
 
 
 # ------------
@@ -46,7 +46,7 @@ def auth_register():
    if not form.validate():
       return render_template("auth/register.html", form=form)
 
-   dbUser = User(form.name.data, form.username.data, form.password.data, True)
+   dbUser = User(form.name.data, form.username.data, form.password.data, "USER")
    db.session.add(dbUser)
    db.session.commit()
 
@@ -58,7 +58,7 @@ def auth_register():
 # ---------------------------------
 
 @app.route("/auth/userinfo", methods=["GET"])
-@login_required
+@login_required()
 def auth_userinfo():
    countUserThreads = User.count_user_threads(current_user.id) 
    countUserPosts = User.count_user_posts(current_user.id)
@@ -67,7 +67,7 @@ def auth_userinfo():
 
 
 @app.route("/auth/changeName", methods=["GET", "POST"])
-@login_required
+@login_required()
 def auth_change_name():
    dbUser = User.query.get(current_user.id)
 
@@ -86,7 +86,7 @@ def auth_change_name():
 
 
 @app.route("/auth/changeUsername", methods=["GET", "POST"])
-@login_required
+@login_required()
 def auth_change_username():
    dbUser = User.query.get(current_user.id)
 
@@ -105,7 +105,7 @@ def auth_change_username():
 
 
 @app.route("/auth/changePassword", methods=["GET", "POST"])
-@login_required
+@login_required()
 def auth_change_password():
    dbUser = User.query.get(current_user.id)
 
@@ -128,8 +128,8 @@ def auth_change_password():
 #   Remove user
 # ---------------
 
-@login_required
 @app.route("/auth/removeUser", methods=["POST"])
+@login_required()
 def auth_remove():
    userPosts = User.user_post_ids(current_user.id)
  
@@ -144,13 +144,6 @@ def auth_remove():
 
    db.session().commit()         
    return redirect(url_for("threads_index"))
-
-
-
-
-
-
-
 
 
 

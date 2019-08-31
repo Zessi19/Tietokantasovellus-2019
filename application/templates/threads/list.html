@@ -8,30 +8,33 @@
       </tr>
 
       {% for i in threadList %}
-         <tr>
-            <td id="td01"><a href="{{ url_for('threads_open', threadId=i[0]) }}">{{ i[1] }}</a></td>
+         {% if i[0] != None %}
 
-            <td id="td01">
-               {% for j in i[2] %}
-                  {{ j }}
-               {% endfor %}
-            </td>
+            <tr>
+               <td id="td01"><a href="{{ url_for('threads_open', threadId=i[0]) }}">{{ i[1] }}</a></td>
+
+               <td id="td01">
+                  {% for j in i[2] %}
+                     {{ j }}
+                  {% endfor %}
+               </td>
          
-            <td id="td01">
-               <div style=float:right;>
-                  <form method="POST" action="{{ url_for('threads_remove', threadId=i[0]) }}">
-                     <input type="submit" value="Poista"/>
-                  </form>
-               </div>
+               <td id="td01">
+                  <div style=float:right;>
+                     <form method="POST" action="{{ url_for('threads_remove', threadId=i[0]) }}">
+                        <input type="submit" value="Poista"/>
+                     </form>
+                  </div>
 
-               <div style=float:right;>
-                  <form method="GET" action="{{ url_for('threads_update', threadId=i[0]) }}">
-                     <input type="submit" value="Muokkaa"/>
-                  </form>
-               </div>
-            </td>
-         </tr>
+                  <div style=float:right;>
+                     <form method="GET" action="{{ url_for('threads_update', threadId=i[0]) }}">
+                        <input type="submit" value="Muokkaa"/>
+                     </form>
+                  </div>
+               </td>
+            </tr>
 
+         {% endif %}
       {% endfor %}
    </table>
 {% endblock %}

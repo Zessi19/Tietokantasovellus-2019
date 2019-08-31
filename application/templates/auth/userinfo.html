@@ -43,13 +43,7 @@
 
    <tr>
       <td> Käyttöoikeudet: </td>
-      <td colspan="2">
-         {% if current_user.admin == True %}
-            admin
-         {% else %}
-            user
-         {% endif %}
-      </td>
+      <td colspan="2"> {{ current_user.userRole }} </td>
    </tr>
 
    <tr>

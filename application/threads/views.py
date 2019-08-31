@@ -1,7 +1,7 @@
 from flask import redirect, render_template, request, url_for
-from flask_login import login_required, current_user
+from flask_login import current_user
 
-from application import app, db
+from application import app, db, login_required
 from application.threads.models import Thread, Category
 from application.threads.forms import ThreadForm, ChangeTopicForm
 from application.posts.models import Post
@@ -40,7 +40,7 @@ def threads_open(threadId):
 # ---------------------
 
 @app.route("/threads/new", methods=["GET", "POST"])
-@login_required
+@login_required()
 def threads_create():
    if request.method == "GET":
       return render_template("threads/new.html", form=ThreadForm())
@@ -97,6 +97,7 @@ def threads_create():
 # -----------------------
 
 @app.route("/threads/<threadId>/update", methods=["GET", "POST"])
+@login_required()
 def threads_update(threadId):
    dbThread = Thread.query.get(threadId)
 
@@ -119,6 +120,7 @@ def threads_update(threadId):
 # -----------------
 
 @app.route("/threads/<threadId>/remove", methods=["POST"])
+@login_required()
 def threads_remove(threadId):
    postsData = Post.get_posts_in_thread(threadId)
    

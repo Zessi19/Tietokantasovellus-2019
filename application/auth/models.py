@@ -10,15 +10,15 @@ class User(Base):
    name = db.Column(db.String(255), nullable=False)
    username = db.Column(db.String(255), nullable=False)
    password = db.Column(db.String(255), nullable=False)
-   admin = db.Column(db.Boolean, nullable=False)
+   userRole = db.Column(db.String(80), nullable=False)
 
    posts = db.relationship("Post", backref='account', lazy=True)
 
-   def __init__(self, name, username, password, admin):
+   def __init__(self, name, username, password, userRole):
       self.name = name
       self.username = username
       self.password = password
-      self.admin = admin
+      self.userRole = userRole
   
    def get_id(self):
       return self.id
@@ -31,6 +31,9 @@ class User(Base):
 
    def is_authenticated(self):
       return True
+
+   def get_userRole(self):
+      return self.userRole
 
 
    @staticmethod
@@ -78,13 +81,6 @@ class User(Base):
       for row in res:
          response = row[0]
       return response
-
-
-
-
-
-
-
 
 
 
