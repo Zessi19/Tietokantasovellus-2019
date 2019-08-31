@@ -2,8 +2,11 @@
 
 ## Linkit
 * [Heroku:](https://tsoha-keskustelufoorumi-jj.herokuapp.com/) 
-  * Käyttäjätunnus: aku, hessu
-  * Salasana molemmat: ankkalinna (Helppo rekisteröidä myös oma käyttäjä)
+  * Käyttäjätunnus: 
+     * Master: master
+     * Admin: admin 
+     * User: aku, hessu
+  * Kaikkien salasana: ankkalinna (Helppo rekisteröidä myös oma User käyttäjä)
   
 * Sovelluksen tila, [weeklyUpdate:](https://github.com/Zessi19/Tietokantasovellus-2019/blob/master/documentation/WeeklyUpdate.md)
 
