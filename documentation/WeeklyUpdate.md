@@ -4,6 +4,8 @@ Dokumentti sisältää lyhyekön läpikäynnin harjoitustyön tilasta ja lisäty
 
 ## Week 6
 
+**-- Edit --** Muutama tunti meni yliaikaa, mutta vihdoin Heroku toimii. Olin nimennty Kategoria liitostaulun threadCategory, mutta jostain syystä liitostaulu toimii vain kokonaan pienellä kirjoitettuta (eli threadcategory) Herokussa. Paikallisesti omalla koneella molemmat versiot olivat. Tällä viikolla käytin tähän menessä heittämällä eniten aikaa projektiin monesta moneen taulun ja User authenticationiin liittyvien pugien takia. Projektin tulevan viimeistelyn pitäisi nyt toivonmukaan olla suoraviivaisempaa projektin hiomista jo tuttujen python/flask/sqlalchemy toiminnallisuuksien avulla. **-- Edit End --**
+
 Projektiin on lisätty viimeiset puuttuvat isot kokonaisuudet: Kategorioiden (yksi tai useampi) liittäminen Threadiin ja User authentication käyttäjän userRole muuttujan avulla (User, Admin tai Master).
 
 Kategoriat on lisätty erillisenä tauluna (Category) ja liitostauluna (ThreadCategory). Kategoriat lisätään Threadin luomisen yhteydessä intuitiivisesti raksittamalla laatikoista sopivat. Toimii: uuden threadin luomisessa, threadien listauksessa ja threadin poistossa. Työnalla: kategorieoiden vaihtaminen threadia muokatessa, valdiointi (min yksi kategoria). Kategoriat luodaan thread/__init__.py tiedostossa olevan event handlerin avulla tietokannan luonnin yhteydessä.
