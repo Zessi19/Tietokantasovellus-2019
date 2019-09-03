@@ -158,10 +158,10 @@ def delete_user_posts(userId):
 @app.route("/auth/listUsers", methods=["GET"])
 @login_required(roles=["ADMIN", "MASTER"])
 def auth_list_users():
-   if current_user.userRole == "MASTER":
+   if current_user.userrole == "MASTER":
       userList = User.list_users_and_admins()
 
-   if current_user.userRole == "ADMIN":
+   if current_user.userrole == "ADMIN":
       userList = User.list_users()
 
    return render_template("/auth/userList.html", userList=userList)
@@ -176,10 +176,10 @@ def auth_list_users():
 def auth_sudo_remove_user(userId):
    dbUser = User.query.get(userId)   
 
-   if dbUser.userRole == "MASTER":
+   if dbUser.userrole == "MASTER":
       return login_manager.unauthorized()
 
-   if dbUser.userRole == "ADMIN" and current_user.userRole != "MASTER":
+   if dbUser.userrole == "ADMIN" and current_user.userrole != "MASTER":
       return login_manager.unauthorized()
 
    # User Posts
@@ -201,10 +201,10 @@ def auth_sudo_remove_user(userId):
 def auth_change_user_status(userId):
    dbUser = User.query.get(userId)   
 
-   if (dbUser.userRole == "USER"):
-      dbUser.userRole = "ADMIN"
+   if (dbUser.userrole == "USER"):
+      dbUser.userrole = "ADMIN"
    else:
-      dbUser.userRole = "USER"
+      dbUser.userrole = "USER"
 
    db.session().commit()
    return redirect(url_for("auth_list_users"))

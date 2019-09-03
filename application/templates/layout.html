@@ -34,7 +34,7 @@
             {% endif %}
          </li>
          <li>
-            {% if current_user.is_authenticated and (current_user.userRole == "ADMIN" or current_user.userRole == "MASTER") %}
+            {% if current_user.is_authenticated and (current_user.userrole == "ADMIN" or current_user.userrole == "MASTER") %}
                <a href="{{ url_for('auth_list_users') }}">Hallinnoi käyttäjiä</a> 
             {% endif %}
          </li>

@@ -9,15 +9,15 @@ class User(Base):
    name = db.Column(db.String(255), nullable=False)
    username = db.Column(db.String(255), nullable=False)
    password = db.Column(db.String(255), nullable=False)
-   userRole = db.Column(db.String(80), nullable=False)
+   userrole = db.Column(db.String(80), nullable=False)
 
    posts = db.relationship("Post", backref='account', lazy=True)
 
-   def __init__(self, name, username, password, userRole):
+   def __init__(self, name, username, password, userrole):
       self.name = name
       self.username = username
       self.password = password
-      self.userRole = userRole
+      self.userrole = userrole
   
    def get_id(self):
       return self.id
@@ -31,8 +31,8 @@ class User(Base):
    def is_authenticated(self):
       return True
 
-   def get_userRole(self):
-      return self.userRole
+   def get_userrole(self):
+      return self.userrole
 
 
    @staticmethod
@@ -84,9 +84,9 @@ class User(Base):
 
    @staticmethod
    def list_users_and_admins():
-      statement = text("SELECT Account.id, Account.username, Account.userRole FROM Account"
-                  " WHERE NOT Account.userRole='MASTER'"
-                  " ORDER BY Account.userRole")
+      statement = text("SELECT Account.id, Account.username, Account.userrole FROM Account"
+                  " WHERE NOT Account.userrole='MASTER'"
+                  " ORDER BY Account.userrole")
       res = db.engine.execute(statement)
 
       response = []
@@ -97,9 +97,9 @@ class User(Base):
 
    @staticmethod
    def list_users():
-      statement = text("SELECT Account.id, Account.username, Account.userRole FROM Account"
-                  " WHERE NOT Account.userRole='MASTER' AND NOT Account.userRole='ADMIN'"
-                  " ORDER BY Account.userRole")
+      statement = text("SELECT Account.id, Account.username, Account.userrole FROM Account"
+                  " WHERE NOT Account.userrole='MASTER' AND NOT Account.userrole='ADMIN'"
+                  " ORDER BY Account.userrole")
       res = db.engine.execute(statement)
 
       response = []

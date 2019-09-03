@@ -43,7 +43,7 @@
 
    <tr>
       <td> Käyttöoikeudet: </td>
-      <td colspan="2"> {{ current_user.userRole }} </td>
+      <td colspan="2"> {{ current_user.userrole }} </td>
    </tr>
 
    <tr>
@@ -59,7 +59,7 @@
    <tr><td colspan="3"></td></tr>
 </table>
 
-{% if current_user.userRole != "MASTER" %}
+{% if current_user.userrole != "MASTER" %}
    <form method="POST" action="{{ url_for('auth_remove') }}">
       <input type="submit" value="Poista käyttäjätili"/>
    </form>
