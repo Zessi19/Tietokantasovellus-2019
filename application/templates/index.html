@@ -3,26 +3,24 @@
 {% block body %}
 <div style="clear:both"></div>
 
-<table class="tb_index" style="font-weight:bold"/>
-   <tr><td colspan="2"></td></tr>
-   
-   <tr>
-      <td> Käyttäjät: </td>
-      <td>{{ countUsers }}</td>
-   </tr>
+<div class= div_tb_index>
+   <table style="font-weight:bold">   
+      <tr>
+         <td> Käyttäjät: </td>
+         <td>{{ countUsers }}</td>
+      </tr>
 
-   <tr>
-      <td> Viestiketjut: </td>
-      <td>{{ countThreads }} </td>                    
-   </tr>
+      <tr>
+         <td> Viestiketjut: </td>
+         <td>{{ countThreads }} </td>     
+      </tr>
 
-   <tr>
-      <td> Viestit: </td>
-      <td>{{ countPosts }}</td>
-   </tr>
-
-    <tr rowspan="2"><td colspan="2"></td></tr>
-</table>
+      <tr>
+         <td> Viestit: </td>
+         <td>{{ countPosts }}</td>
+      </tr>
+   </table>
+</div>
 
 <div style="text-align:center">
    <img class=img_index src="/static/images/link.png" alt="Link iskee miekalla (tLoZ: Ocarina of Time)"/>

@@ -59,8 +59,10 @@
    <tr><td colspan="3"></td></tr>
 </table>
 
-<form method="POST" action="{{ url_for('auth_remove') }}">
-   <input type="submit" value="Poista käyttäjätili"/>
-</form>
+{% if current_user.userRole != "MASTER" %}
+   <form method="POST" action="{{ url_for('auth_remove') }}">
+      <input type="submit" value="Poista käyttäjätili"/>
+   </form>
+{% endif %}
 
 {% endblock %}

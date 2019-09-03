@@ -1,7 +1,7 @@
 from flask import redirect, render_template, request, url_for
 from flask_login import login_user, logout_user, current_user
 
-from application import app, db, login_required
+from application import app, db, login_manager, login_required
 from application.auth.models import User
 from application.auth.forms import LoginForm, RegisterForm, ChangeNameForm, ChangeUsernameForm, ChangePasswordForm
 from application.posts.models import Post
@@ -54,7 +54,7 @@ def auth_register():
 
 
 # ---------------------------------
-#   User information and updating
+#   User Information and Updating
 # ---------------------------------
 
 @app.route("/auth/userinfo", methods=["GET"])
@@ -125,25 +125,89 @@ def auth_change_password():
 
 
 # ---------------
-#   Remove user
+#   Remove User
 # ---------------
 
 @app.route("/auth/removeUser", methods=["POST"])
-@login_required()
+@login_required(roles=["USER", "ADMIN"])
 def auth_remove():
-   userPosts = User.user_post_ids(current_user.id)
- 
-   if userPosts[0] is not None:  
-      for i in userPosts:
-         dbPost = Post.query.get(i)
-         db.session().delete(dbPost)
+   delete_user_posts(current_user.id)
 
    dbUser = User.query.get(current_user.id)
    logout_user()
-   db.session().delete(dbUser)
 
+   db.session().delete(dbUser)
    db.session().commit()         
    return redirect(url_for("threads_index"))
+
+
+def delete_user_posts(userId):
+   userPosts = User.user_post_ids(userId)
+
+   if userPosts[0] is not None:
+      for i in userPosts:
+         dbPost = Post.query.get(i)
+         db.session().delete(dbPost)
+      db.session().commit()
+
+
+# ----------------------------------
+#   ADMIN & MASTER: List All Users
+# ----------------------------------
+
+@app.route("/auth/listUsers", methods=["GET"])
+@login_required(roles=["ADMIN", "MASTER"])
+def auth_list_users():
+   if current_user.userRole == "MASTER":
+      userList = User.list_users_and_admins()
+
+   if current_user.userRole == "ADMIN":
+      userList = User.list_users()
+
+   return render_template("/auth/userList.html", userList=userList)
+
+
+# ------------------------------------
+#   ADMIN & MASTER: Sudo Remove User
+# ------------------------------------
+
+@app.route("/auth/sudoRemoveUser/<userId>", methods=["POST"])
+@login_required(roles=["ADMIN", "MASTER"])
+def auth_sudo_remove_user(userId):
+   dbUser = User.query.get(userId)   
+
+   if dbUser.userRole == "MASTER":
+      return login_manager.unauthorized()
+
+   if dbUser.userRole == "ADMIN" and current_user.userRole != "MASTER":
+      return login_manager.unauthorized()
+
+   # User Posts
+   delete_user_posts(userId)
+
+   # User Account
+   db.session().delete(dbUser)
+   db.session().commit()
+
+   return redirect(url_for("auth_list_users"))
+
+
+# -------------------------------
+#   MASTER: Change User Status
+# -------------------------------
+
+@app.route("/auth/changeUserStatus/<userId>", methods=["POST"])
+@login_required(roles=["MASTER"])
+def auth_change_user_status(userId):
+   dbUser = User.query.get(userId)   
+
+   if (dbUser.userRole == "USER"):
+      dbUser.userRole = "ADMIN"
+   else:
+      dbUser.userRole = "USER"
+
+   db.session().commit()
+   return redirect(url_for("auth_list_users"))
 
 
 

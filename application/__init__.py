@@ -35,7 +35,7 @@ login_manager.login_message = "Please login to use this functionality."
 # Roles in login_required
 from functools import wraps
 
-def login_required(role="ANY"):
+def login_required(roles=["ANY"]):
    def wrapper(fn):
       @wraps(fn)
       def decorated_view(*args, **kwargs):
@@ -47,11 +47,11 @@ def login_required(role="ANY"):
             
          unauthorized = False
 
-         if role != "ANY":
+         if roles[0] != "ANY":
             unauthorized = True
-                
-            for user_role in current_user.get_userRole():
-               if user_role == role:
+             
+            for i in roles:
+               if current_user.get_userRole() == i:
                   unauthorized = False
                   break
 
@@ -86,9 +86,6 @@ try:
     db.create_all()
 except:
     pass
-
-
-
 
 
 

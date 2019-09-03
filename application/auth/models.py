@@ -3,7 +3,6 @@ from application.models import Base
 
 from sqlalchemy.sql import text
 
-
 class User(Base):
    __tablename__ = "account"
 
@@ -82,6 +81,31 @@ class User(Base):
          response = row[0]
       return response
 
+
+   @staticmethod
+   def list_users_and_admins():
+      statement = text("SELECT Account.id, Account.username, Account.userRole FROM Account"
+                  " WHERE NOT Account.userRole='MASTER'"
+                  " ORDER BY Account.userRole")
+      res = db.engine.execute(statement)
+
+      response = []
+      for row in res:
+         response.append([row[0], row[1], row[2]])
+      return response
+
+
+   @staticmethod
+   def list_users():
+      statement = text("SELECT Account.id, Account.username, Account.userRole FROM Account"
+                  " WHERE NOT Account.userRole='MASTER' AND NOT Account.userRole='ADMIN'"
+                  " ORDER BY Account.userRole")
+      res = db.engine.execute(statement)
+
+      response = []
+      for row in res:
+         response.append([row[0], row[1], row[2]])
+      return response
 
 
 

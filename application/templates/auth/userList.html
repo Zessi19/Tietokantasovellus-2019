@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div style="clear:both"></div>
+
+<table>
+   <caption style="font-weight: bold; font-size: 140%;"> Käyttäjät </caption>
+   <th><td colspan="3"></td></th>
+
+   <tr>
+      <th> Käyttäjätunnus: </th>
+      <th colspan="2"> Status: </th>
+   </tr>
+
+   {% for i in userList %}
+      <tr>
+
+         <td id="td01">{{ i[1] }}</td>
+         
+         <td id="td01">{{ i[2] }}</td>
+
+         <td id="td01">
+            <div style=float:right;>
+               <form method="POST" action="{{ url_for('auth_sudo_remove_user', userId=i[0]) }}">
+                  <input type="submit" value="Poista"/>
+               </form>
+            </div>
+
+            {% if current_user.userRole == "MASTER" %}
+               <div style=float:right;>
+                  <form method="POST" action="{{ url_for('auth_change_user_status', userId=i[0]) }}">
+                     <input type="submit" value="Vaihda Status"/>
+                  </form>
+               </div>
+            {% endif %}
+         </td>
+
+      </tr>
+   {% endfor %}
+</table>
+
+{% endblock %}
+
+
+
+
+

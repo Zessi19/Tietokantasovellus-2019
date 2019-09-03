@@ -34,6 +34,11 @@
             {% endif %}
          </li>
          <li>
+            {% if current_user.is_authenticated and (current_user.userRole == "ADMIN" or current_user.userRole == "MASTER") %}
+               <a href="{{ url_for('auth_list_users') }}">Hallinnoi käyttäjiä</a> 
+            {% endif %}
+         </li>
+         <li>
             {% if current_user.is_authenticated %}
                <a href="{{ url_for('auth_logout') }}">Kirjaudu ulos</a>
             {% else %}
