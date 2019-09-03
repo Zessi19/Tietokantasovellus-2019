@@ -86,7 +86,7 @@ class User(Base):
    def list_users_and_admins():
       statement = text("SELECT Account.id, Account.username, Account.userrole FROM Account"
                   " WHERE NOT Account.userrole='MASTER'"
-                  " ORDER BY Account.userrole")
+                  " ORDER BY Account.userrole, Account.username")
       res = db.engine.execute(statement)
 
       response = []
@@ -99,7 +99,7 @@ class User(Base):
    def list_users():
       statement = text("SELECT Account.id, Account.username, Account.userrole FROM Account"
                   " WHERE NOT Account.userrole='MASTER' AND NOT Account.userrole='ADMIN'"
-                  " ORDER BY Account.userrole")
+                  " ORDER BY Account.userrole, Account.username")
       res = db.engine.execute(statement)
 
       response = []
