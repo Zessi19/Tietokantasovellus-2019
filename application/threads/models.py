@@ -45,7 +45,7 @@ class Thread(Base):
       statement = text("SELECT Thread.id, Thread.topic, Category.name FROM Thread"
                   " LEFT JOIN ThreadCategory ON Thread.id = ThreadCategory.thread_id"
                   " LEFT JOIN Category ON ThreadCategory.category_id = Category.id"
-                  " ORDER BY Thread.id ASC")
+                  " ORDER BY Thread.created ASC")
       res = db.engine.execute(statement)
 
       response = []
@@ -66,6 +66,23 @@ class Thread(Base):
       return response
 
 
+   # List of number of posts in every thread
+   @staticmethod
+   def thread_posts_count():
+      statement = text("SELECT Thread.id, COUNT(Post.id) FROM Thread"
+                  " LEFT JOIN Post ON Thread.id = Post.thread_id"
+                  " GROUP BY Thread.id"
+                  " ORDER BY Thread.created ASC")
+      res = db.engine.execute(statement)
+
+      response = []
+      for row in res:
+         response.append([row[0], row[1]]);
+
+      return response
+
+
+   # Total number of threads in database
    @staticmethod
    def total_threads():
       statement = text("SELECT COUNT(*) FROM Thread")

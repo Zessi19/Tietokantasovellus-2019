@@ -12,9 +12,15 @@ from application.posts.models import Post
 
 @app.route("/threads", methods=["GET"])
 def threads_index():
-
    #List of lists(3 elements): [0] Thread.id, [1] Thread.topic, [2] List of Category names
    threadList = Thread.get_default_threadList()
+
+   # List of list (2 elements): [0] Thread.id, [1] COUNT(posts in thread)
+   postCount = Thread.thread_posts_count()
+   
+   # Join postCount.COUNT(posts) into threadList:([0] Thread.id, [1] Thread.topic, [2] List of Category names, COUNT(posts))
+   for i in range(len(threadList)):
+      threadList[i].append(postCount[i][1])
 
    return render_template("threads/list.html", threadList=threadList)
 
@@ -49,10 +55,12 @@ def threads_create():
    if not form.validate():
       return render_template("threads/new.html", form=form)
 
+   # Create Thread
    dbThread = Thread(form.topic.data)
    db.session().add(dbThread)
    db.session().flush()
-
+   
+   # Add Thread category dependicies 
    if (form.yleinen.data == True):
       dbCategory = Category.query.filter_by(name="Yleinen").first()
       dbThread.categories.append(dbCategory)
@@ -66,7 +74,7 @@ def threads_create():
       dbThread.categories.append(dbCategory)
 
    if (form.wiiu.data == True):
-      dbCategory = Category.query.filter_by(name="Wii U").first()
+      dbCategory = Category.query.filter_by(name="WiiU").first()
       dbThread.categories.append(dbCategory)
 
    if (form.switch.data == True):
@@ -81,8 +89,7 @@ def threads_create():
       dbCategory = Category.query.filter_by(name="3DS").first()
       dbThread.categories.append(dbCategory)
 
-
-
+   # Create Post
    dbPost = Post(form.message.data, 1)
    dbPost.account_id = current_user.id
    dbPost.thread_id = dbThread.id
@@ -125,7 +132,7 @@ def threads_remove(threadId):
    postsData = Post.get_posts_in_thread(threadId)
    
    for row in postsData:
-      dbPost = Post.query.get(row[1])
+      dbPost = Post.query.get(row[2])
       db.session().delete(dbPost)
 
    dbThread = Thread.query.get(threadId)

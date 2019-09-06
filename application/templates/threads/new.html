@@ -49,6 +49,10 @@
                {% for error in form.message.errors %}
                   <li>{{ error }}</li>
                {% endfor %}
+
+               {% for error in form.yleinen.errors %}
+                  <li>{{ error }}</li>
+               {% endfor %}
             </ul>
          </td>
       </tr>

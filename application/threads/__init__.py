@@ -10,7 +10,7 @@ def insert_initial_values(*args, **kwargs):
    db.session.add(Category("Retro"))
 
    db.session.add(Category("Wii"))
-   db.session.add(Category("Wii U"))
+   db.session.add(Category("WiiU"))
    db.session.add(Category("Switch"))
 
    db.session.add(Category("DS"))

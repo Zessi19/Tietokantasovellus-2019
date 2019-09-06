@@ -140,7 +140,7 @@ def auth_remove():
    db.session().commit()         
    return redirect(url_for("threads_index"))
 
-
+# Deletes all post from User(userID)
 def delete_user_posts(userId):
    userPosts = User.user_post_ids(userId)
 
@@ -192,9 +192,9 @@ def auth_sudo_remove_user(userId):
    return redirect(url_for("auth_list_users"))
 
 
-# -------------------------------
-#   MASTER: Change User Status
-# -------------------------------
+# ----------------------------------------------
+#   MASTER: Change User Status (USER vs ADMIN)
+# ----------------------------------------------
 
 @app.route("/auth/changeUserStatus/<userId>", methods=["POST"])
 @login_required(roles=["MASTER"])

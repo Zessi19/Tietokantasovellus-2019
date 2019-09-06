@@ -16,6 +16,7 @@ class Post(Base):
       self.priority = priority
 
 
+   # List of User and Post data from all posts in single Thread(threadId)
    @staticmethod
    def get_posts_in_thread(threadId):
       statement = text("SELECT Account.id, Account.username, Post.id, Post.message, Post.created, Post.modified FROM Post"
@@ -31,7 +32,7 @@ class Post(Base):
 
       return response
 
-
+   # Total number of posts in database
    @staticmethod
    def total_posts():
       statement = text("SELECT COUNT(*) FROM Post")

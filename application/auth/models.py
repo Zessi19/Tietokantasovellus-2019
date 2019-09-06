@@ -35,6 +35,7 @@ class User(Base):
       return self.userrole
 
 
+   # Number of threads started by User(userId)
    @staticmethod
    def count_user_threads(userId):
       statement = text("SELECT COUNT(Post.id) FROM Account"
@@ -47,6 +48,7 @@ class User(Base):
       return response
 
 
+   # Number of posts send by User(userId)
    @staticmethod
    def count_user_posts(userId):
       statement = text("SELECT COUNT(Post.id) FROM Account"
@@ -59,6 +61,7 @@ class User(Base):
       return response
 
 
+   # List of Post.id posted by User(userId)
    @staticmethod
    def user_post_ids(userId):
       statement = text("SELECT Post.id FROM Account"
@@ -73,6 +76,7 @@ class User(Base):
 
 
    @staticmethod
+   # Total number of accounts in database
    def total_users():
       statement = text("SELECT COUNT(*) FROM Account")
       res = db.engine.execute(statement)
@@ -82,6 +86,7 @@ class User(Base):
       return response
 
 
+   # List account data where account.status USER or ADMIN
    @staticmethod
    def list_users_and_admins():
       statement = text("SELECT Account.id, Account.username, Account.userrole FROM Account"
@@ -95,6 +100,7 @@ class User(Base):
       return response
 
 
+   # List account data where account.status is USER
    @staticmethod
    def list_users():
       statement = text("SELECT Account.id, Account.username, Account.userrole FROM Account"

@@ -4,7 +4,8 @@
    <table>
       <tr>
          <th>Otsikko</th>
-         <th colspan="2">Alue</th>
+         <th>Alue</th>
+         <th>Viestejä</th>
       </tr>
 
       {% for i in threadList %}
@@ -15,11 +16,13 @@
 
                <td id="td01">
                   {% for j in i[2] %}
-                     {{ j }}
+                     <small>{{ j }}</small>
                   {% endfor %}
                </td>
          
                <td id="td01">
+                  {{ i[3] }}
+
                   {% if current_user.userrole == "ADMIN" or current_user.userrole == "MASTER" %}
 
                      <div style=float:right;>
