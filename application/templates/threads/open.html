@@ -20,22 +20,41 @@
 
       {% for row in postsData %}
          <tr>
-            <td id="td01" style="font-weight: bold">{{ row[0] }}</td>
-            <td id="td01"><textarea>{{ row[2] }}</textarea></td>
+            <td id="td01">
+               <table cellspacing="0">
+                  <tr><td colspan="2" style="font-weight:bold">{{ row[1] }}</td></tr>
+                  
+                  <tr><td class="td_small_post" style="font-weight:bold">lähetetty:</td></tr>
+                  <tr><td class="td_small_post">{{ row[4] }}</td></tr>
+                 
+                  {% if row[4] != row[5] %} 
+                     <tr><td class="td_small_post" style="font-weight:bold">muokattu:</td></tr>
+                     <tr><td class="td_small_post">{{ row[5] }}</td></tr>
+                  {% endif %}
+               </table>
+            </td>
+
+
+            <td id="td01"><pre class="pre_post">{{ row[3] }}</pre></td>
 
             <td id="td01">
-               <div style=float:right;>
-                  <form method="POST" action="{{ url_for('posts_remove', threadId=threadData[0], postId=row[1]) }}">
-                     <input type="submit" value="Poista"/>
-                  </form>
-               </div>
+               {% if (current_user.userrole == "ADMIN" or current_user.userrole == "MASTER") or current_user.id == row[0] %}
 
-               <div style=float:right;>
-                  <form method="GET" action="{{ url_for('posts_update', threadId=threadData[0], postId=row[1]) }}">
-                     <input type="submit" value="Muokkaa"/>
-                  </form>
-               </div>
+                  <div style=float:right;>
+                     <form method="GET" action="{{ url_for('posts_update', threadId=threadData[0], postId=row[2]) }}">
+                        <input type="submit" value="Muokkaa"/>
+                     </form>
+                  </div>
+
+                  <div style=float:right;>
+                     <form method="POST" action="{{ url_for('posts_remove', threadId=threadData[0], postId=row[2]) }}">
+                        <input type="submit" value="Poista"/>
+                     </form>
+                  </div>
+
+               {% endif %}
             </td>
+
          </tr>
       {% endfor %}
 
@@ -51,3 +70,8 @@
 
    </table>
 {% endblock %}
+
+
+
+
+

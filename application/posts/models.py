@@ -18,7 +18,7 @@ class Post(Base):
 
    @staticmethod
    def get_posts_in_thread(threadId):
-      statement = text("SELECT Account.username, Post.id, Post.message, Post.created, Post.modified FROM Post"
+      statement = text("SELECT Account.id, Account.username, Post.id, Post.message, Post.created, Post.modified FROM Post"
                   " LEFT JOIN Thread ON Thread.id = Post.thread_id"
                   " LEFT JOIN Account ON Account.id = Post.account_id"
                   " WHERE Thread.id = :threadId"
@@ -27,7 +27,7 @@ class Post(Base):
 
       response = []
       for row in res:
-         response.append([row[0], row[1], row[2], row[3], row[4]]);
+         response.append([row[0], row[1], row[2], row[3], row[4], row[5]]);
 
       return response
 

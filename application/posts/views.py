@@ -1,7 +1,7 @@
 from flask import redirect, render_template, request, url_for
 from flask_login import current_user
 
-from application import app, db, login_required
+from application import app, db, login_required, login_manager
 from application.posts.models import Post
 from application.posts.forms import PostForm
 
@@ -37,6 +37,10 @@ def posts_new(threadId):
 def posts_update(threadId, postId):
    dbPost = Post.query.get(postId)
 
+   # Allowed: MASTER, ADMIN and USER own post 
+   if (current_user.userrole == "USER" and dbPost.account_id != current_user.id):
+      return login_manager.unauthorized()      
+
    if request.method == "GET":
       form = PostForm()
       form.message.data = dbPost.message
@@ -58,9 +62,17 @@ def posts_update(threadId, postId):
 @app.route("/posts/<threadId>/<postId>/remove", methods=["POST"])
 @login_required()
 def posts_remove(threadId, postId):
-
    dbPost = Post.query.get(postId)
+
+   # Allowed: MASTER, ADMIN and USER own post 
+   if (current_user.userrole == "USER" and dbPost.account_id != current_user.id):
+      return login_manager.unauthorized()
+
    db.session().delete(dbPost)
    db.session().commit()
-
    return redirect(url_for("threads_open", threadId=threadId))
+
+
+
+
+

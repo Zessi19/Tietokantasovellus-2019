@@ -20,7 +20,7 @@ def threads_index():
 
 
 # ---------------
-#   View Thread
+#   Open Thread
 # ---------------
 
 @app.route("/threads/<threadId>/open", methods=["GET"])
@@ -29,7 +29,7 @@ def threads_open(threadId):
    # List(4 elements): [0] Thread.id, [1] Thread.topic, [2] Thread.created, [3] Thread.modified
    threadData = Thread.get_thread(threadId)
 
-   # List of list(5 elements): [0] Account.username, [1] Post.id, [2] Post.message, [3] Post.created, [4] Post.modified
+   # List of list(6 elements): [0] Account.id, [1] Account.username, [2] Post.id, [3] Post.message, [4] Post.created, [5] Post.modified
    postsData = Post.get_posts_in_thread(threadId)
 
    return render_template("threads/open.html", threadData=threadData, postsData=postsData)
@@ -97,7 +97,7 @@ def threads_create():
 # -----------------------
 
 @app.route("/threads/<threadId>/update", methods=["GET", "POST"])
-@login_required()
+@login_required(roles=["ADMIN","MASTER"])
 def threads_update(threadId):
    dbThread = Thread.query.get(threadId)
 
@@ -120,7 +120,7 @@ def threads_update(threadId):
 # -----------------
 
 @app.route("/threads/<threadId>/remove", methods=["POST"])
-@login_required()
+@login_required(roles=["ADMIN","MASTER"])
 def threads_remove(threadId):
    postsData = Post.get_posts_in_thread(threadId)
    
