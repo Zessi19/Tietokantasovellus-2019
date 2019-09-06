@@ -19,8 +19,9 @@ def threads_index():
    postCount = Thread.thread_posts_count()
    
    # Join postCount.COUNT(posts) into threadList:([0] Thread.id, [1] Thread.topic, [2] List of Category names, COUNT(posts))
-   for i in range(len(threadList)):
-      threadList[i].append(postCount[i][1])
+   if len(postCount) != 0:
+      for i in range(len(threadList)):
+         threadList[i].append(postCount[i][1])
 
    return render_template("threads/list.html", threadList=threadList)
 
