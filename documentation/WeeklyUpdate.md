@@ -2,6 +2,15 @@
 
 Dokumentti sisältää lyhyekön läpikäynnin harjoitustyön tilasta ja lisätyistä toiminnallisuuksista kyseisellä viikolla. Projektin kasvaessa dokumentaatioon tullaan sisällyttämään myös muita tiedostoja, joihin viitataan tässä viikoittaisin projektin läpikäynnissä.
 
+## Week 7 (Final return)
+
+Olen ihan tyytyväinen harjoitustyön lopputulokseen. Viimeisellä viikolla projektiin on lisätty kattava User authentigation, jossa on kolme roolia USER, ADMIN ja MASTER. MASTER käyttäjiä on vain yksi ja se luodaan tietokannan yhteydessä. Tätä käyttäjää ei voida myöskään poistaa. MASTER käyttäjä voi myös muuttaa USER käyttäjän ADMINIKSI tai päinvastoin ja poistaa ADMIN käyttäjän. ADMIN on taas tehty USER käyttäjien hallintaan MASTER käyttäjien lisäksi. MASTER ja ADMIN käyttäjällä on oma Käyttäjien hallinta yläpalkista. Erityisesti tästä käyttäjien varmennus-systeemistä olen tyytyväinen ja se on mielestäni suunniteltu hyvin projektin tulevaisuuden laajentamistakin varten. LLisäksi turhat ei sallitut toiminnallisuudet on piilotettu ei kirjautuneilta käyttäjiltä ja USER käyttäjiltä
+
+Lisäksi on listätty toiminnallisuutta viestien näyttämiseen (viestin lähettämisaika ja jos muokattu niin muokkausaika, parempi viestikentän näyttöformaatti joka mukautuu ruudun kokoon) ja viestiketjujen näyttämiseen (ulkoasua hiottu, lisätty jokaisen viestiketjun lukumäärä)
+
+Lopuksi kategorioihin on lisätty vielä oma validation funktio, jonka avulla varmistetaan että viestiä luodessa valitaan vähintään yksi kategoria. 
+
+
 ## Week 6
 
 **-- Edit --** Muutama tunti meni yliaikaa, mutta vihdoin Heroku toimii. Olin nimennty Kategoria liitostaulun threadCategory, mutta jostain syystä liitostaulu toimii vain kokonaan pienellä kirjoitettuta (eli threadcategory) Herokussa. Paikallisesti omalla koneella molemmat versiot olivat. Tällä viikolla käytin tähän menessä heittämällä eniten aikaa projektiin monesta moneen taulun ja User authenticationiin liittyvien pugien takia. Projektin tulevan viimeistelyn pitäisi nyt toivonmukaan olla suoraviivaisempaa projektin hiomista jo tuttujen python/flask/sqlalchemy toiminnallisuuksien avulla. **-- Edit End --**
