@@ -10,6 +10,8 @@ Lisäksi on listätty toiminnallisuutta viestien näyttämiseen (viestin lähett
 
 Lopuksi kategorioihin on lisätty vielä oma validation funktio, jonka avulla varmistetaan että viestiä luodessa valitaan vähintään yksi kategoria. 
 
+Ps. Viimeinen palautus meni muutaman tunnin puolen yön yli. Pahoittelut tästä lipsumisesta, mutta jospa se suotaisiin tällä kertaa anteeksi.
+
 
 ## Week 6
 
