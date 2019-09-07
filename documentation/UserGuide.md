@@ -87,7 +87,8 @@ Huom! Sovelluksella on kolme eri käyttäjä luokkaa: USER, ADMIN, MASTER. Sovel
 
 
 # Viestit (Posts)
-* Koodi /posts/ hakemistossa
+* Viesteissä näytetään lähettäjän käyttäjänimi, lähetysaika, ja itse viesti
+  * Jos viestiä on muokataan, ilmestyy näkyviin myös muokkausaika
 * **Uusi viesti (USER, ADMIN, MASTER):** Avaa viestiketju, palkki "Uusi viesti" sekä ketjun alussa että lopussa
   * Laitettu tahallaan sekä viestiketjun alkuun ja loppuun, jotta pitkän ketjun tapauksessa ei tarvitse rullata uudestaan loppuun
 * **Muokkaa viestiä:** Avaa viestiketju, palkki "Muokkaa"
@@ -96,6 +97,12 @@ Huom! Sovelluksella on kolme eri käyttäjä luokkaa: USER, ADMIN, MASTER. Sovel
 * **Poista viesti:** Avaa viestiketju, poista palkki viestin perässä
   * **USER:** omat viestit
   * **ADMIN ja MASTER:*** kaikki viestit
+  
+#### Koodi
+* Koodi /posts/ hakemistossa
+* Valitettavasti moment.js ei toiminutkaan viestien sisällä, vaikka sain sen toimimaan Omat tiedot sivulla (Ongelma str muotoisessa listassa vs suora current_user.created kutsu)
+  * Viesteissä siis ruma Timestamp formaatti ja GTM aika
+  * Omat tiedot sivulla kiva formaattu ja Suomen aika 
   
 # Ulkoasu
 * HTML templates hakemistossa /templates/
