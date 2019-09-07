@@ -57,18 +57,56 @@ Huom! Sovelluksella on kolme eri käyttäjä luokkaa: USER, ADMIN, MASTER. Sovel
 
 # Viestiketjut (Threads)
 
-* **Uusi viestiketju:** yläpalkki "Aloita uusi keskustelu" -> Otsikko (min 2, max 100 merkkiä), Viesti (min 2, max 4000 merkkiä) -> "Luo viestiketju" -> redirect (Threads List)
-* **Näytä viestiketjut:** yläpalkki "Näytä keskustelut"
-  * **Poista viestiketju:** Palkki viestiketjun otsikon perässä, **Poistaa viestiketjun ja kaikki ketjussa olevat viestit.**
-  * **Muokkaa viestiketjua (otsikko):** Palkki viestiketjun otsikon perässä, Otsikko (min 2, max 100 merkkiä), näkymä vanhaan otsikkoon
+* **Uusi viestiketju: (USER, ADMIN, MASTER)** yläpalkki -> "Aloita uusi keskustelu"
+  * **Validation:** Otsikko (min 2, max 100 merkkiä), Viesti (min 2, max 4000 merkkiä), Kategoriat (täytyy valita vähintään yksi kategoria)
+* **Näytä viestiketjut:** yläpalkki -> "Näytä keskustelut"
+  * Viestiketjussa näkyy nimen lisäksi myös kategoriat ja ketjun viestien lkm
+  * **Poista viestiketju: (ADMIN, MASTER)** Palkki viestiketjun otsikon perässä, **Poistaa viestiketjun ja kaikki ketjussa olevat viestit.**
+  * **Muokkaa viestiketjun otsikkoa (ADMIN, MASTER):** Palkki viestiketjun otsikon perässä
+    * **Validation:** Sama kuin ketjua luotaessa
 
-* **Avaa viestiketju:** klikkaa viestiketjun nimeä
+* **Avaa viestiketju:**
+    * klikkaa viestiketjun nimeä
+
+#### Koodi
+* Koodi /threads/ hakemistossa
+* Thread, Category ja liitostaulu ovat kaikki samassa models.py
+  * Netin mallissa näin, en onnistunut siirtämään Categoryä omaan kansioon
+* Forms.py tiedostossa itse tehty validator, joka tarkistaa että vähintään yksi 7 kategoriasta on valittu ketjua luotaessa
+* **"Näytä viestiketjut"** 2 x SQL kysely:
+  * **get_default_threadList():** palauttaa listan listoja, jossa sisempi sisältää yhden Threadin tiedot (id, topic ja [catgegories])
+    * Järjestetään lähetysajan mukaan
+  * **post_count():** palauttaa listan listoja, joissa sisempi sisältää tiedot (Thread.id, Threadin viestien lkm)
+    * Tässä tehdään haluttu "monimutkainen yhteenvetokysely" eli COUNT() ja GROUP BY
+  * Ennen hmtl sivulle lähetystä tulokset yhdistetään vielä yhdeksi  
+* **Avaa viestiketju** 2 x SQL kysely
+  * **get_thread(threadId)** palauttaa listan avattavan Threadin tiedoista
+  * **posts_in_thread(threadId)** palauttaa listan listoja, jossa sisemmällä aina yhden viestin tiedot
+* Poistettaessa viestiketju (thread_remove) tehdään taas oma SQL kysely, jolla haetaan kaikki poistettavan viestiketjun viestit, jotka poistetaan myös että ne eivät jää täyttämään tietokantaa
+* Koodissa on yritetty kommentoida tärkeimmät kohdat ja listojen yhteydessä on merkattu mitä mikäkin indeksi sisältää
 
 
-# Posts (Viestit)
-* **Uusi viesti:** Avaa viestiketju, palkki "Uusi viesti" sekä ketjun alussa että lopussa
+# Viestit (Posts)
+* Koodi /posts/ hakemistossa
+* **Uusi viesti (USER, ADMIN, MASTER):** Avaa viestiketju, palkki "Uusi viesti" sekä ketjun alussa että lopussa
+  * Laitettu tahallaan sekä viestiketjun alkuun ja loppuun, jotta pitkän ketjun tapauksessa ei tarvitse rullata uudestaan loppuun
 * **Muokkaa viestiä:** Avaa viestiketju, palkki "Muokkaa"
-* **Poista viesti:** Avaa viestiketju, poista palkki viestin perässä -> redirect(viestiketju)
+  * **USER:** omat viestit
+  * **ADMIN ja MASTER:*** kaikki viestit
+* **Poista viesti:** Avaa viestiketju, poista palkki viestin perässä
+  * **USER:** omat viestit
+  * **ADMIN ja MASTER:*** kaikki viestit
+  
+# Ulkoasu
+* HTML templates hakemistossa /templates/
+* CSS ja kuvat hakemistossa /static/
+* Ulkoasuassa melko pelkistetty ja karkea tyyli
+  * Koin tämän mielekkäämmäksi lähestymistavaksi, koska tämä pakotti minut oppimaan enemmän HTML/CSS:stä ensimäistä websovellustani tehdessä
+  * Seuraavassa tulen käyttämään valmista kirjastoa, jolloin ulkoasustakin on helpompi saada nätimpi
+  * Linkit on jätetty tahallaan sinisiksi
+    * Koitin muita värejä + ei alle viivausta, mutta ainakin omaan silmään tämä yllätäen teki vaikeammaksi hahmottaa sovelluksen toimintaa näin ulkoasultaa karkeassa tapauksessa 
+  
+
 
 
 
